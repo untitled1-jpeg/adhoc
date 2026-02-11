@@ -1,8 +1,13 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GridContainer, GridCol } from '@/components/Grid';
 import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
@@ -77,14 +82,36 @@ const CtaLink = styled.a`
 `;
 
 export default function Leadership() {
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true
+        }
+      });
+
+      tl.fromTo([headlineRef.current, contentRef.current],
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
   return (
-    <SectionWrapper id="why-adhoc">
+    <SectionWrapper id="why-adhoc" ref={sectionRef}>
       <GridContainer>
         <GridCol $span={12}>
           <Eyebrow>Why Adhoc?</Eyebrow>
         </GridCol>
 
-        <GridCol $start={3} $span={8}>
+        <GridCol $start={3} $span={8} ref={headlineRef}>
           <Headline>
             We believe life works best when the right people are at the helm.
             Adhoc is built around a highly selective team of Life Coordinators
@@ -93,18 +120,17 @@ export default function Leadership() {
           </Headline>
         </GridCol>
 
-        <GridCol $start={4} $span={6}>
+        <GridCol $start={4} $span={6} ref={contentRef}>
           <Description>
             Our coordinators think holistically, act proactively, and operate with intention.
             These are not task rabbits, but strategic partners who understand the rhythms
             of the lives they support, and they handle the details accordingly.
           </Description>
-        </GridCol>
-
-        <GridCol $start={5} $span={4} style={{ marginTop: '1rem' }}>
-          <CtaLink href="/leadership">
-            OUR LEADERSHIP <ArrowHorizontal width="20px" color="#ee552f" />
-          </CtaLink>
+          <div style={{ marginTop: '3.5rem', display: 'flex', justifyContent: 'center' }}>
+            <CtaLink href="/leadership">
+              OUR LEADERSHIP <ArrowHorizontal width="20px" color="#ee552f" />
+            </CtaLink>
+          </div>
         </GridCol>
       </GridContainer>
     </SectionWrapper>

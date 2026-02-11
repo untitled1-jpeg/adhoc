@@ -1,8 +1,13 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GridContainer, GridCol } from '@/components/Grid';
 import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
@@ -141,14 +146,48 @@ const CtaLink = styled.a`
 `;
 
 export default function Memberships() {
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true
+        }
+      });
+
+      tl.fromTo([titleRef.current, descriptionRef.current],
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+      )
+        .fromTo(cardsRef.current,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.15, duration: 1, ease: "power3.out" },
+          "-=0.6"
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const addToCardRefs = (el) => {
+    if (el && !cardsRef.current.includes(el)) {
+      cardsRef.current.push(el);
+    }
+  };
   return (
-    <SectionWrapper id="memberships">
+    <SectionWrapper id="memberships" ref={sectionRef}>
       <GridContainer>
         <GridCol $span={12}>
-          <Eyebrow>Memberships</Eyebrow>
+          <Eyebrow ref={titleRef}>Memberships</Eyebrow>
         </GridCol>
         <GridCol $start={3} $span={8}>
-          <Description>
+          <Description ref={descriptionRef}>
             A private membership that pairs individuals and
             families with a dedicated coordinator to manage
             all of the moving parts of their lives.
@@ -160,7 +199,7 @@ export default function Memberships() {
         <GridContainer>
           {/* Essential */}
           <GridCol $start={1} $span={4}>
-            <TierCard>
+            <TierCard ref={addToCardRefs}>
               <TierTitle>Essential</TierTitle>
               <TierHours>50 hours per month</TierHours>
               <Separator />
@@ -172,7 +211,7 @@ export default function Memberships() {
 
           {/* Elevated */}
           <GridCol $start={5} $span={4}>
-            <TierCard>
+            <TierCard ref={addToCardRefs}>
               <TierTitle>Elevated</TierTitle>
               <TierHours>80 hours per month</TierHours>
               <Separator />
@@ -184,7 +223,7 @@ export default function Memberships() {
 
           {/* Exclusive */}
           <GridCol $start={9} $span={4}>
-            <TierCard>
+            <TierCard ref={addToCardRefs}>
               <TierTitle>Exclusive</TierTitle>
               <TierHours>Full-time coordination</TierHours>
               <Separator />

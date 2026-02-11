@@ -1,8 +1,13 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GridContainer, GridCol } from '@/components/Grid';
 import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
@@ -154,33 +159,63 @@ const Disclaimer = styled.p`
 `;
 
 export default function Contact() {
+  const sectionRef = useRef(null);
+  const elementsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(elementsRef.current,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            once: true
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const addToElementsRef = (el) => {
+    if (el && !elementsRef.current.includes(el)) {
+      elementsRef.current.push(el);
+    }
+  };
   return (
-    <SectionWrapper id="contact">
+    <SectionWrapper id="contact" ref={sectionRef}>
       <GridContainer>
-        <GridCol $start={3} $span={8}>
+        <GridCol $start={3} $span={8} ref={addToElementsRef}>
           <Headline>Get on the list and<br /><em>get your life back.</em></Headline>
         </GridCol>
 
         <GridCol $start={4} $span={6}>
           <Form>
-            <FormGroup>
+            <FormGroup ref={addToElementsRef}>
               <Label htmlFor="name">Full name</Label>
               <Input type="text" id="name" name="name" required placeholder="John Doe" />
             </FormGroup>
-            <FormGroup>
+            <FormGroup ref={addToElementsRef}>
               <Label htmlFor="email">Email</Label>
               <Input type="email" id="email" name="email" required placeholder="john@example.com" />
             </FormGroup>
-            <FormGroup>
+            <FormGroup ref={addToElementsRef}>
               <Label htmlFor="phone">Phone</Label>
               <Input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
             </FormGroup>
-            <FormGroup>
+            <FormGroup ref={addToElementsRef}>
               <Label htmlFor="zip">Zip Code</Label>
               <Input type="text" id="zip" name="zip" required placeholder="90210" />
             </FormGroup>
 
-            <OptionsGrid>
+            <OptionsGrid ref={addToElementsRef}>
               <Option>
                 <input type="radio" name="membership" value="Essential" />
                 Essential
@@ -195,11 +230,13 @@ export default function Contact() {
               </Option>
             </OptionsGrid>
 
-            <SubmitButton type="submit">
-              START THE CONVERSATION <ArrowHorizontal width="25px" color="#ee552f" />
-            </SubmitButton>
+            <div ref={addToElementsRef}>
+              <SubmitButton type="submit">
+                START THE CONVERSATION <ArrowHorizontal width="25px" color="#ee552f" />
+              </SubmitButton>
+            </div>
           </Form>
-          <Disclaimer>We respect your privacy. No spam, ever.</Disclaimer>
+          <Disclaimer ref={addToElementsRef}>We respect your privacy. No spam, ever.</Disclaimer>
         </GridCol>
       </GridContainer>
     </SectionWrapper>

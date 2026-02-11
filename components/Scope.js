@@ -1,7 +1,12 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GridContainer, GridCol } from '@/components/Grid';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
@@ -90,13 +95,46 @@ const ListItem = styled.li`
 `;
 
 export default function Scope() {
+  const sectionRef = useRef(null);
+  const headlineRef = useRef(null);
+  const columnsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          once: true
+        }
+      });
+
+      tl.fromTo(headlineRef.current,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      )
+        .fromTo(columnsRef.current,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.1, duration: 1, ease: "power3.out" },
+          "-=0.7"
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const addToColumnRefs = (el) => {
+    if (el && !columnsRef.current.includes(el)) {
+      columnsRef.current.push(el);
+    }
+  };
   return (
-    <SectionWrapper id="scope">
+    <SectionWrapper id="scope" ref={sectionRef}>
       <GridContainer>
         <GridCol $span={12}>
           <Eyebrow>Our Scope</Eyebrow>
         </GridCol>
-        <GridCol $start={2} $span={10}>
+        <GridCol $start={2} $span={10} ref={headlineRef}>
           <Description>
             Across personal, family, home, and professional life, we bring order, foresight, and intention.
             We anticipate and intelligently coordinate the many moving parts, so our members can stay focused on what matters most.
@@ -105,7 +143,7 @@ export default function Scope() {
       </GridContainer>
 
       <ScopeGrid>
-        <GridCol $start={1} $span={3}>
+        <GridCol $start={1} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Personal</ColumnTitle>
             <List>
@@ -117,7 +155,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={4} $span={3}>
+        <GridCol $start={4} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Family</ColumnTitle>
             <List>
@@ -131,7 +169,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={7} $span={3}>
+        <GridCol $start={7} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Home</ColumnTitle>
             <List>
@@ -144,7 +182,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={10} $span={3}>
+        <GridCol $start={10} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Professional</ColumnTitle>
             <List>

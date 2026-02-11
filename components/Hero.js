@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
 import Image from 'next/image';
 import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
 import ArrowVertical from '@/components/icons/ArrowVertical';
@@ -169,21 +171,68 @@ const NavArrow = styled.div`
 `;
 
 export default function Hero() {
+  const headlineRef = useRef(null);
+  const subheadlineRef = useRef(null);
+  const ctaRef = useRef(null);
+  const navItemsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 1.2 }
+      });
+
+      // Split headline into lines manually for precision
+      const lines = headlineRef.current.querySelectorAll('span, em');
+
+      tl.fromTo(lines,
+        { y: 40, opacity: 0, filter: 'blur(10px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.2, duration: 1.5 },
+        "+=0.5" // Slight delay after preloader reveal
+      )
+        .fromTo(subheadlineRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1 },
+          "-=1"
+        )
+        .fromTo(ctaRef.current,
+          { scaleX: 0, transformOrigin: "left", opacity: 0 },
+          { scaleX: 1, opacity: 1, duration: 1 },
+          "-=0.8"
+        )
+        .fromTo(navItemsRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.1, duration: 0.8 },
+          "-=0.5"
+        );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  const addToNavRefs = (el) => {
+    if (el && !navItemsRef.current.includes(el)) {
+      navItemsRef.current.push(el);
+    }
+  };
   return (
     <HeroWrapper>
       <Content>
         <GridContainer style={{ height: 'auto' }}>
           <GridCol $start={3} $span={8} $tabletSpan={10} $tabletStart={2} $mobileSpan={12} $mobileStart={1}>
-            <Headline>Your life.<br /><em>Intelligently coordinated.</em></Headline>
+            <Headline ref={headlineRef}>
+              <span style={{ display: 'block' }}>Your life.</span>
+              <em>Intelligently coordinated.</em>
+            </Headline>
           </GridCol>
           <GridCol $start={4} $span={6} $tabletSpan={8} $tabletStart={3} $mobileSpan={12} $mobileStart={1}>
-            <Subheadline>
+            <Subheadline ref={subheadlineRef}>
               Latin for “for this purpose,” Adhoc exists to keep complex lives running without friction.
               We oversee the details others miss. From logistics to schedules and contingencies, everything is
               handled with thought and intention. Through your dedicated coordinator, life stays aligned, on
               time, and under control. Nothing escalates. Nothing surprises. It is simply handled. Intelligently.
             </Subheadline>
-            <CtaLink href="#contact">
+            <CtaLink href="#contact" ref={ctaRef}>
               GET ON THE LIST <ArrowHorizontal width="25px" color="#ee552f" />
             </CtaLink>
           </GridCol>
@@ -192,7 +241,7 @@ export default function Hero() {
         <BottomNav>
           <GridContainer>
             <GridCol $span={2} $start={4} $tabletSpan={4} $tabletStart={1} $mobileSpan={4} $mobileStart={1}>
-              <NavItem>
+              <NavItem ref={addToNavRefs}>
                 <NavLink href="#memberships">Memberships</NavLink>
                 <NavArrow>
                   <ArrowVertical width="12px" color="#ee552f" />
@@ -200,7 +249,7 @@ export default function Hero() {
               </NavItem>
             </GridCol>
             <GridCol $span={2} $start={6} $tabletSpan={4} $tabletStart={5} $mobileSpan={4} $mobileStart={1}>
-              <NavItem>
+              <NavItem ref={addToNavRefs}>
                 <NavLink href="#scope">Our Scope</NavLink>
                 <NavArrow>
                   <ArrowVertical width="12px" color="#ee552f" />
@@ -208,7 +257,7 @@ export default function Hero() {
               </NavItem>
             </GridCol>
             <GridCol $span={2} $start={8} $tabletSpan={4} $tabletStart={9} $mobileSpan={4} $mobileStart={1}>
-              <NavItem>
+              <NavItem ref={addToNavRefs}>
                 <NavLink href="#why-adhoc">Why Adhoc?</NavLink>
                 <NavArrow>
                   <ArrowVertical width="12px" color="#ee552f" />
