@@ -1,0 +1,160 @@
+'use client';
+
+import styled from 'styled-components';
+import { GridContainer, GridCol } from '@/components/Grid';
+
+const SectionWrapper = styled.section`
+  color: #fff;
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Eyebrow = styled.span`
+  font-family: "sofia-pro", sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 3rem;
+  display: block;
+  text-align: center;
+`;
+
+const Description = styled.h2`
+  font-family: "ivyora-display", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 6rem;
+  color: #fff;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+`;
+
+const ScopeGrid = styled(GridContainer)`
+  column-gap: 70px; /* Increased to 70px per feedback */
+  
+  @media (max-width: 1550px) {
+    column-gap: 40px;
+  }
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ColumnTitle = styled.h3`
+  font-family: "ivyora-display", serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+`;
+
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const ListItem = styled.li`
+  font-family: "sofia-pro", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: flex-start;
+  
+  &::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-right: 1rem;
+    margin-top: 0.6rem;
+    flex-shrink: 0;
+  }
+`;
+
+export default function Scope() {
+  return (
+    <SectionWrapper id="scope">
+      <GridContainer>
+        <GridCol $span={12}>
+          <Eyebrow>Our Scope</Eyebrow>
+        </GridCol>
+        <GridCol $start={2} $span={10}>
+          <Description>
+            Across personal, family, home, and professional life, we bring order, foresight, and intention.
+            We anticipate and intelligently coordinate the many moving parts, so our members can stay focused on what matters most.
+          </Description>
+        </GridCol>
+      </GridContainer>
+
+      <ScopeGrid>
+        <GridCol $start={1} $span={3}>
+          <Column>
+            <ColumnTitle>Personal</ColumnTitle>
+            <List>
+              <ListItem>Schedule management and personal logistics</ListItem>
+              <ListItem>Travel planning and execution (domestic & international)</ListItem>
+              <ListItem>Personal purchases, gifting, and special arrangements</ListItem>
+              <ListItem>Leisure planning, experiences, and personal projects</ListItem>
+            </List>
+          </Column>
+        </GridCol>
+
+        <GridCol $start={4} $span={3}>
+          <Column>
+            <ColumnTitle>Family</ColumnTitle>
+            <List>
+              <ListItem>Children's schedules, school coordination, and activities</ListItem>
+              <ListItem>Family holidays and milestone events</ListItem>
+              <ListItem>Household staffing coordination and oversight</ListItem>
+              <ListItem>Family logistics, transitions, and special circumstances</ListItem>
+              <ListItem>Support during periods of change, growth, or crisis</ListItem>
+              <ListItem>Long-term family planning</ListItem>
+            </List>
+          </Column>
+        </GridCol>
+
+        <GridCol $start={7} $span={3}>
+          <Column>
+            <ColumnTitle>Home</ColumnTitle>
+            <List>
+              <ListItem>Property and residence coordination</ListItem>
+              <ListItem>Vendor sourcing, management, and accountability</ListItem>
+              <ListItem>Maintenance schedules and planning</ListItem>
+              <ListItem>Home projects</ListItem>
+              <ListItem>Seasonal preparation</ListItem>
+            </List>
+          </Column>
+        </GridCol>
+
+        <GridCol $start={10} $span={3}>
+          <Column>
+            <ColumnTitle>Professional</ColumnTitle>
+            <List>
+              <ListItem>High-level calendar oversight</ListItem>
+              <ListItem>Travel, event, and meeting coordination</ListItem>
+              <ListItem>Liaison with the Advisory Team and office staff</ListItem>
+            </List>
+          </Column>
+        </GridCol>
+      </ScopeGrid>
+    </SectionWrapper>
+  );
+}

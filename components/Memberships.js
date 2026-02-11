@@ -1,0 +1,210 @@
+'use client';
+
+import styled from 'styled-components';
+import { GridContainer, GridCol } from '@/components/Grid';
+import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
+
+const SectionWrapper = styled.section`
+  color: #fff;
+  padding: 12rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Eyebrow = styled.span`
+  font-family: "sofia-pro", sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 3.5rem;
+  display: block;
+  text-align: center;
+`;
+
+const Description = styled.h2`
+  font-family: "ivyora-display", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #fff;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const TiersGrid = styled.div`
+  margin-top: 6rem;
+  width: 100%;
+  
+  @media (max-width: 900px) {
+    margin-top: 2rem;
+  }
+`;
+
+const TierCard = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  
+  @media (max-width: 900px) {
+    margin-bottom: 1.5rem;
+    height: auto;
+  }
+`;
+
+const TierTitle = styled.h3`
+  font-family: "ivyora-display", serif;
+  font-size: 3rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+
+  @media (max-width: 900px) {
+    font-size: 2rem;
+  }
+`;
+
+const TierHours = styled.span`
+  font-family: "sofia-pro", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  color: #fff;
+`;
+
+const Separator = styled.div`
+  width: 140px;
+  height: 1.5px;
+  background-color: #ee552f;
+  margin: 0 auto 1.5rem;
+`;
+
+const TierDescription = styled.p`
+  font-family: "sofia-pro", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 280px;
+  margin: 0 auto 3rem;
+  
+  @media (max-width: 900px) {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+`;
+
+const CtaWrapper = styled.div`
+  margin-top: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+  @media (max-width: 900px) {
+    margin-top: 2rem;
+  }
+`;
+
+const CtaLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: "sofia-pro", sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1.5px solid #fff;
+  padding-bottom: 0.6rem;
+  transition: all 0.3s ease;
+  width: fit-content;
+  
+  &:hover {
+    gap: 1.5rem;
+    color: #ee552f;
+    border-bottom-color: #ee552f;
+    
+    svg {
+      fill: #ee552f;
+    }
+  }
+`;
+
+export default function Memberships() {
+  return (
+    <SectionWrapper id="memberships">
+      <GridContainer>
+        <GridCol $span={12}>
+          <Eyebrow>Memberships</Eyebrow>
+        </GridCol>
+        <GridCol $start={3} $span={8}>
+          <Description>
+            A private membership that pairs individuals and
+            families with a dedicated coordinator to manage
+            all of the moving parts of their lives.
+          </Description>
+        </GridCol>
+      </GridContainer>
+
+      <TiersGrid>
+        <GridContainer>
+          {/* Essential */}
+          <GridCol $start={1} $span={4}>
+            <TierCard>
+              <TierTitle>Essential</TierTitle>
+              <TierHours>50 hours per month</TierHours>
+              <Separator />
+              <TierDescription>
+                Consistent support from a dedicated life coordinator.
+              </TierDescription>
+            </TierCard>
+          </GridCol>
+
+          {/* Elevated */}
+          <GridCol $start={5} $span={4}>
+            <TierCard>
+              <TierTitle>Elevated</TierTitle>
+              <TierHours>80 hours per month</TierHours>
+              <Separator />
+              <TierDescription>
+                Expanded support from a dedicated life coordinator.
+              </TierDescription>
+            </TierCard>
+          </GridCol>
+
+          {/* Exclusive */}
+          <GridCol $start={9} $span={4}>
+            <TierCard>
+              <TierTitle>Exclusive</TierTitle>
+              <TierHours>Full-time coordination</TierHours>
+              <Separator />
+              <TierDescription>
+                Upscaled support from a dedicated life coordinator, structured entirely around your family.
+              </TierDescription>
+            </TierCard>
+          </GridCol>
+        </GridContainer>
+      </TiersGrid>
+
+      <CtaWrapper>
+        <GridContainer>
+          <GridCol $span={12} style={{ display: 'flex', justifyContent: 'center' }}>
+            <CtaLink href="#contact">
+              GET ON THE LIST <ArrowHorizontal width="20px" color="#ee552f" />
+            </CtaLink>
+          </GridCol>
+        </GridContainer>
+      </CtaWrapper>
+    </SectionWrapper>
+  );
+}

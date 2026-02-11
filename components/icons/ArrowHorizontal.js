@@ -1,0 +1,24 @@
+'use client';
+
+import styled from 'styled-components';
+
+const Svg = styled.svg`
+  width: ${props => props.$width || '70px'};
+  height: auto;
+  fill: ${props => props.$color || '#ee552f'};
+  transition: transform 0.3s ease;
+`;
+
+export default function ArrowHorizontal({ width, color, className }) {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 70.03 32.37"
+            $width={width}
+            $color={color}
+            className={className}
+        >
+            <path d="M70.03,13.19c-1.95-.24-6.52-1.22-10.13-5.11-2.61-2.82-3.65-5.95-4.05-8.08l-5.89,1.13c.55,2.9,1.97,7.17,5.55,11.03.34.36.68.7,1.02,1.03H0v6h56.52c-.35.33-.69.67-1.02,1.03-3.58,3.86-4.99,8.13-5.55,11.03l5.89,1.13c.41-2.13,1.44-5.26,4.05-8.08,3.61-3.89,8.18-4.87,10.13-5.11,0-2,0-4,0-6Z" />
+        </Svg>
+    );
+}
