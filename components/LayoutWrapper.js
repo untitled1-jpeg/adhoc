@@ -43,6 +43,8 @@ export default function LayoutWrapper({ children }) {
                 ease: 'power2.out',
                 onComplete: () => {
                     setIsLoading(false);
+                    // Signal to children (like Hero) that entrance can begin
+                    window.dispatchEvent(new CustomEvent('adhoc_ready'));
                 }
             });
         }

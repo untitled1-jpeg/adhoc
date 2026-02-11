@@ -177,37 +177,60 @@ export default function Hero() {
   const navItemsRef = useRef([]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.out", duration: 1.2 }
+    const playEntrance = () => {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          defaults: { ease: "power3.out", duration: 1.2 }
+        });
+
+        // Split headline into lines manually for precision
+        const lines = headlineRef.current.querySelectorAll('span, em');
+
+        tl.fromTo(lines,
+          { y: 40, opacity: 0, filter: 'blur(10px)' },
+          { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.2, duration: 1.5 }
+        )
+          .fromTo(subheadlineRef.current,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1 },
+            "-=1"
+          )
+          .fromTo(ctaRef.current,
+            { scaleX: 0, transformOrigin: "left", opacity: 0 },
+            { scaleX: 1, opacity: 1, duration: 1 },
+            "-=0.8"
+          )
+          .fromTo(navItemsRef.current,
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.8 },
+            "-=0.5"
+          );
       });
+      return ctx;
+    };
 
-      // Split headline into lines manually for precision
-      const lines = headlineRef.current.querySelectorAll('span, em');
+    // Check if we need to wait or play immediately
+    const isAppLoading = document.getElementById('main-content')?.style.opacity === "0";
 
-      tl.fromTo(lines,
-        { y: 40, opacity: 0, filter: 'blur(10px)' },
-        { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.2, duration: 1.5 },
-        "+=0.5" // Slight delay after preloader reveal
-      )
-        .fromTo(subheadlineRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1 },
-          "-=1"
-        )
-        .fromTo(ctaRef.current,
-          { scaleX: 0, transformOrigin: "left", opacity: 0 },
-          { scaleX: 1, opacity: 1, duration: 1 },
-          "-=0.8"
-        )
-        .fromTo(navItemsRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.1, duration: 0.8 },
-          "-=0.5"
-        );
-    });
+    let ctx;
+    if (!isAppLoading) {
+      // Internal navigation - play immediately
+      ctx = playEntrance();
+    } else {
+      // Initial load - wait for preloader signal
+      const handleReady = () => {
+        ctx = playEntrance();
+      };
+      window.addEventListener('adhoc_ready', handleReady);
+      return () => {
+        window.removeEventListener('adhoc_ready', handleReady);
+        if (ctx) ctx.revert();
+      };
+    }
 
-    return () => ctx.revert();
+    return () => {
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   const addToNavRefs = (el) => {
