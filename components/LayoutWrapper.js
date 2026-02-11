@@ -20,24 +20,55 @@ const Content = styled.main`
 
 export default function LayoutWrapper({ children }) {
     const [isLoading, setIsLoading] = useState(true);
+    const [shouldShowPreloader, setShouldShowPreloader] = useState(false);
+    const [isClient, setIsClient] = useState(false);
     const mainContentRef = useRef(null);
 
+    useEffect(() => {
+        setIsClient(true);
+        const hasSeenPreloader = sessionStorage.getItem('adhoc_preloader_seen');
+
+        if (hasSeenPreloader) {
+            setShouldShowPreloader(false);
+            setIsLoading(false);
+            // If already seen, immediately show content
+            if (mainContentRef.current) {
+                gsap.set(mainContentRef.current, { opacity: 1 });
+            }
+        } else {
+            setShouldShowPreloader(true);
+        }
+    }, []);
+
     const handlePreloaderComplete = () => {
+        sessionStorage.setItem('adhoc_preloader_seen', 'true');
         // Reveal content after preloader finishes
         if (mainContentRef.current) {
             gsap.to(mainContentRef.current, {
                 opacity: 1,
                 duration: 1,
                 ease: 'power2.out',
-                onComplete: () => setIsLoading(false)
+                onComplete: () => {
+                    setIsLoading(false);
+                    setShouldShowPreloader(false);
+                }
             });
         }
     };
 
+    // Prevent hydration mismatch by only rendering preloader logic on client
+    if (!isClient) {
+        return <div style={{ opacity: 0 }}>{children}</div>;
+    }
+
     return (
         <>
-            <Preloader onComplete={handlePreloaderComplete} />
-            <MainContent ref={mainContentRef} id="main-content">
+            {shouldShowPreloader && <Preloader onComplete={handlePreloaderComplete} />}
+            <MainContent
+                ref={mainContentRef}
+                id="main-content"
+                style={{ opacity: !shouldShowPreloader && !isLoading ? 1 : 0 }}
+            >
                 <Header />
                 <Content>{children}</Content>
                 <Footer />
