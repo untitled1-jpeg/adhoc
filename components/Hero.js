@@ -79,7 +79,7 @@ const CtaLink = styled.a`
   cursor: pointer;
   text-decoration: none;
   border-bottom: 1px solid #fff;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
   transition: all 0.3s ease;
   width: fit-content;
   margin-bottom: 0.5rem; /* Tightened per feedback */
@@ -135,7 +135,7 @@ const NavLink = styled.a`
   color: #fff;
   text-decoration: none;
   border-bottom: 1px solid #fff;
-  padding-bottom: 0.8rem;
+  padding-bottom: 0.4rem;
   margin-bottom: 1.5rem;
   width: fit-content;
   text-align: center;

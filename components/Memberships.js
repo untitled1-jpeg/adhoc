@@ -130,7 +130,7 @@ const CtaLink = styled.a`
   cursor: pointer;
   text-decoration: none;
   border-bottom: 1px solid #fff;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
   transition: all 0.3s ease;
   width: fit-content;
   

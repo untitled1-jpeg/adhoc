@@ -65,7 +65,7 @@ const CtaLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   border-bottom: 1px solid #fff;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
   transition: all 0.3s ease;
   width: fit-content;
   margin: 0 auto;

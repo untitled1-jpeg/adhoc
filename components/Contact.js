@@ -129,7 +129,7 @@ const SubmitButton = styled.button`
   border: none;
   border-bottom: 1px solid #fff;
   color: #fff;
-  padding: 0.6rem 0; /* Reduced padding */
+  padding: 0.4rem 0; /* Standardized with links */
   font-family: "sofia-pro", sans-serif;
   font-size: 0.85rem;
   text-transform: uppercase;
