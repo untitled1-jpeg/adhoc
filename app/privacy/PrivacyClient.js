@@ -31,7 +31,7 @@ const SectionTitle = styled.h2`
   font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: 1.5rem;
-  color: #ee552f;
+  color: #fff; /* Changed from orange to white as requested */
 `;
 
 const Text = styled.p`
@@ -58,9 +58,11 @@ const ListItem = styled.li`
   align-items: flex-start;
 
   &::before {
-    content: "—";
+    content: "•"; /* Changed from dash to bullet */
     margin-right: 1.5rem;
-    color: #ee552f;
+    color: #ee552f; /* Kept orange as requested */
+    font-size: 1.5rem; /* Increased size for bullet visibility */
+    line-height: 1.1rem; /* Adjust alignment */
     flex-shrink: 0;
   }
 `;
