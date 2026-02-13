@@ -35,7 +35,7 @@ const Description = styled.h2`
   text-align: center;
   margin-bottom: 6rem;
   color: #fff;
-  max-width: 900px;
+  max-width: 740px;
   margin-left: auto;
   margin-right: auto;
 
