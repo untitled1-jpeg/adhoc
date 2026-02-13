@@ -57,7 +57,7 @@ export default function Preloader({ onComplete }) {
                 duration: 1.5,
                 ease: 'power2.out'
             })
-                .to({}, { duration: 4.5 }) // Hold for the remainder of the 6 seconds
+                .to({}, { duration: 2.5 }) // Hold for the remainder of the 4 seconds
                 .to(videoRef.current, {
                     opacity: 0,
                     scale: 1.02,
