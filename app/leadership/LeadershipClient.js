@@ -1,6 +1,8 @@
 'use client';
 
 import styled from 'styled-components';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
 
@@ -89,12 +91,48 @@ const BioText = styled.p`
 `;
 
 export default function LeadershipClient() {
+  const imageRef = useRef(null);
+  const infoRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out", duration: 1.5 }
+      });
+
+      // Pure Fade/Blur Entrance (No Slide)
+      tl.fromTo(imageRef.current,
+        { opacity: 0, filter: 'blur(20px)' },
+        { opacity: 1, filter: 'blur(0px)' }
+      )
+        .fromTo(infoRef.current,
+          { opacity: 0, filter: 'blur(20px)' },
+          { opacity: 1, filter: 'blur(0px)', duration: 1.2 },
+          "-=1.2"
+        )
+        // Stagger animate children of Content (Title, SubHeadline, Separator, BioText)
+        .fromTo(contentRef.current.children,
+          { opacity: 0, filter: 'blur(20px)' },
+          {
+            opacity: 1,
+            filter: 'blur(0px)',
+            stagger: 0.2,
+            duration: 1.5
+          },
+          "-=1.0"
+        );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <PageWrapper>
       <GridContainer>
         {/* Left Column: Image & Contact Info */}
         <GridCol $start={2} $span={3}>
-          <ImageWrapper>
+          <ImageWrapper ref={imageRef}>
             <Image
               src="/img_holly.jpg"
               alt="Holly Moon - President & CEO"
@@ -102,7 +140,7 @@ export default function LeadershipClient() {
               priority
             />
           </ImageWrapper>
-          <Info>
+          <Info ref={infoRef}>
             <h3>President & CEO</h3>
             <p>hello@adhoc-co.com</p>
           </Info>
@@ -110,7 +148,7 @@ export default function LeadershipClient() {
 
         {/* Right Column: Bio Content */}
         <GridCol $start={6} $span={6}>
-          <Content>
+          <Content ref={contentRef}>
             <Title>Our Leadership</Title>
             <SubHeadline>
               Holly Moon is the President & CEO of Adhoc and a trusted operator with more than a decade of experience supporting executives, entrepreneurs, and families with complex lives.
