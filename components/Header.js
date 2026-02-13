@@ -10,7 +10,7 @@ const HeaderWrapper = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  padding: ${props => props.$scrolled ? '1rem 2rem' : '2rem 2rem'};
+  padding: ${props => props.$scrolled ? '1rem 40px' : '2rem 40px'};
   display: flex;
   justify-content: center;
   align-items: center;

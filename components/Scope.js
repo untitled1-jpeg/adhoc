@@ -69,9 +69,7 @@ const ColumnTitle = styled.h3`
 
 const List = styled.ul`
   list-style: none;
-  padding: 0 40px;
-  
-  /* Laptops (around 1500px) */
+  padding: 0 0 0 1.5rem;
   margin: 0;
 `;
 
