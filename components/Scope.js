@@ -47,8 +47,8 @@ const Description = styled.h2`
 
 const ScopeGrid = styled(GridContainer)`
   padding: 0 80px;
-  column-gap: 20px;
-  
+  column-gap: 60px;
+ bitumen  
   @media (max-width: 1550px) {
     padding: 0 60px;
   }
