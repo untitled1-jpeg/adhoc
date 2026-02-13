@@ -12,7 +12,7 @@ const FooterWrapper = styled.footer`
   position: relative;
   z-index: 10;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 60px 0;
   }
 `;
@@ -37,7 +37,7 @@ const Copyright = styled.span`
   margin-top: 1rem;
   display: ${props => props.$mobileOnly ? 'none' : 'block'};
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     display: ${props => props.$mobileOnly ? 'block' : 'none'};
     text-align: left;
     margin-top: 4rem;
@@ -49,7 +49,7 @@ const NavColumn = styled.div`
   flex-direction: column;
   gap: 1.5rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     margin-top: ${props => props.$isSecond ? '1rem' : '3rem'};
     gap: 1rem;
   }
@@ -73,7 +73,7 @@ const Definition = styled.div`
   color: rgba(255, 255, 255, 0.8);
   max-width: 300px;
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     margin-top: 4rem;
     max-width: 100%;
     text-align: left;

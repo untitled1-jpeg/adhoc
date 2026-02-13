@@ -28,13 +28,13 @@ const VideoWrapper = styled.div`
   pointer-events: none;
 
   video {
-    width: 140%; /* Scaled up 40% */
-    height: 140%; /* Scaled up 40% */
+    width: 112%; /* 20% smaller than previous 140% */
+    height: 112%;
     object-fit: contain; /* Ensure logo is never cropped */
     
-    @media (max-width: 768px) {
-      width: 140%; /* Maintain scale on mobile */
-      height: 140%;
+    @media (max-width: 767px) {
+      width: 161%; /* 15% larger than previous 140% */
+      height: 161%;
     }
   }
 `;
@@ -44,6 +44,7 @@ const VideoWrapper = styled.div`
 export default function Preloader({ onComplete }) {
     const wrapperRef = useRef(null);
     const videoRef = useRef(null);
+    const videoLoadedRef = useRef(false);
     const [videoReady, setVideoReady] = useState(false);
 
     useEffect(() => {
@@ -57,31 +58,54 @@ export default function Preloader({ onComplete }) {
             });
 
             // Animation Sequence
-            tl.to(videoRef.current, {
-                opacity: 1,
-                duration: 1.5,
-                ease: 'power2.out'
-            })
-                .to({}, { duration: 2.5 }) // Hold for the remainder of the 4 seconds
-                .to(videoRef.current, {
-                    opacity: 0,
-                    scale: 1.02,
-                    duration: 1,
-                    ease: 'power2.inOut'
+            if (videoLoadedRef.current) {
+                // Video loaded successfully - play full cinematic sequence
+                tl.to(videoRef.current, {
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: 'power2.out'
                 })
-                .to(wrapperRef.current, {
+                    .to({}, { duration: 2.5 })
+                    .to(videoRef.current, {
+                        opacity: 0,
+                        scale: 1.02,
+                        duration: 1,
+                        ease: 'power2.inOut'
+                    })
+                    .to(wrapperRef.current, {
+                        opacity: 0,
+                        duration: 1.0,
+                        ease: 'power2.inOut',
+                        display: 'none'
+                    });
+            } else {
+                // Timeout fallback - fade out immediately to save LCP
+                tl.to(wrapperRef.current, {
                     opacity: 0,
-                    duration: 0.8,
+                    duration: 0.5,
                     ease: 'power2.inOut',
                     display: 'none'
                 });
+            }
 
         }, wrapperRef);
 
         return () => ctx.revert();
     }, [onComplete, videoReady]);
 
+    useEffect(() => {
+        // Safety timeout to ensure preloader doesn't hang if connection is slow
+        const timeout = setTimeout(() => {
+            if (!videoReady) {
+                setVideoReady(true);
+            }
+        }, 3000); // 3s max wait time (reduced from 5s)
+
+        return () => clearTimeout(timeout);
+    }, [videoReady]);
+
     const handleCanPlayThrough = () => {
+        videoLoadedRef.current = true;
         setVideoReady(true);
     };
 

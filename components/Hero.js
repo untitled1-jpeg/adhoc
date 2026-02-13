@@ -3,11 +3,14 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Image from 'next/image';
 import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
 import ArrowVertical from '@/components/icons/ArrowVertical';
 
 import { GridContainer, GridCol } from '@/components/Grid';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const HeroWrapper = styled.section`
   position: relative;
@@ -22,7 +25,7 @@ const HeroWrapper = styled.section`
   overflow: hidden;
   padding-top: 100px; /* Buffer for fixed logo */
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     height: auto;
     min-height: 100vh;
     padding: 160px 0 100px 0; /* Increased top padding for logo clearance */
@@ -36,7 +39,7 @@ const Content = styled.div`
   width: 100%;
   padding: 0 20px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     text-align: left;
     padding: 0; /* Handled by GridContainer inside */
   }
@@ -44,7 +47,7 @@ const Content = styled.div`
 
 const Headline = styled.h1`
   font-family: "ivyora-display", serif;
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-size: clamp(3.25rem, 10vw, 4.5rem); /* User corrected specification */
   font-weight: 400;
   line-height: 1.1;
   margin-bottom: 2rem;
@@ -56,10 +59,10 @@ const Headline = styled.h1`
     font-weight: 400;
   }
 
-  @media (max-width: 768px) {
-    font-size: clamp(3rem, 10vw, 3.25rem); /* Adjusted for technical validity */
+  @media (max-width: 767px) {
+    font-size: 3.25rem; /* Locked to 3.25rem per user request */
     line-height: 1.2;
-    margin-bottom: 0.75rem; /* Reduced from 1.5rem */
+    margin-bottom: 2rem; /* Standardized to 32px */
   }
 `;
 
@@ -71,10 +74,10 @@ const Subheadline = styled.p`
   font-weight: 300;
   color: rgba(255, 255, 255, 0.8);
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 0.9rem; /* Updated as requested */
     max-width: 100%; /* Ensure full width */
-    margin-bottom: 1rem; /* Reduced from default */
+    margin-bottom: 2rem; /* Standardized to 32px */
   }
 `;
 
@@ -106,7 +109,7 @@ const CtaLink = styled.a`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     margin-top: 1rem;
   }
 `;
@@ -117,8 +120,8 @@ const BottomNav = styled.div`
   margin-top: 2rem;
   z-index: 10;
   
-  @media (max-width: 768px) {
-    margin-top: 2.5rem; /* Reduced from 4rem */
+  @media (max-width: 767px) {
+    margin-top: 2.5rem; /* Reinstated correct property */
     padding-bottom: 4rem;
     
     & > ${GridContainer} {
@@ -138,7 +141,7 @@ const NavItem = styled.div`
   align-items: center;
   width: 100%;
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     align-items: center; /* Center-align link and arrow on mobile when row */
     margin-bottom: 0;
     width: auto;
@@ -164,7 +167,7 @@ const NavLink = styled.a`
     color: #ee552f;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding-bottom: 0.2rem;
     margin-bottom: 0.6rem; /* Restored/Increased spacing to arrow */
     font-size: 0.85rem;
@@ -203,28 +206,40 @@ export default function Hero() {
         const lines = headlineRef.current.querySelectorAll('span, em');
 
         tl.fromTo(lines,
-          { y: 40, opacity: 0, filter: 'blur(15px)' },
-          { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.2, duration: 1.5 }
+          { opacity: 0, filter: 'blur(40px)' },
+          {
+            opacity: 1,
+            filter: 'blur(0px)',
+            stagger: 0.3,
+            duration: 1.8,
+            ease: "power4.out"
+          }
         )
           .fromTo(subheadlineRef.current,
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1 },
-            "-=1"
+            { opacity: 0, filter: 'blur(15px)' },
+            { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: "power3.out" },
+            "-=1.2"
           )
           .fromTo([ctaRef.current, ...navItemsRef.current],
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.1, duration: 1 },
-            "-=0.8"
+            { opacity: 0, filter: 'blur(15px)' },
+            {
+              opacity: 1,
+              filter: 'blur(0px)',
+              stagger: 0.15,
+              duration: 1.2,
+              ease: "power3.out"
+            },
+            "-=1"
           );
       });
       return ctx;
     };
 
     // Check if we need to wait or play immediately
-    const isAppLoading = document.getElementById('main-content')?.style.opacity === "0";
+    const hasPreloaderRun = typeof window !== 'undefined' && sessionStorage.getItem('adhoc_preloader_run');
 
     let ctx;
-    if (!isAppLoading) {
+    if (hasPreloaderRun) {
       // Internal navigation - play immediately
       ctx = playEntrance();
     } else {
@@ -249,6 +264,23 @@ export default function Hero() {
       navItemsRef.current.push(el);
     }
   };
+
+  const handleScroll = (e) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    if (!href.startsWith('#')) return;
+    const targetId = href.substring(1);
+    const targetSection = document.getElementById(targetId);
+
+    if (targetSection) {
+      gsap.to(window, {
+        duration: 1.5,
+        scrollTo: { y: targetSection, offsetY: 0 },
+        ease: "power2.inOut"
+      });
+    }
+  };
+
   return (
     <HeroWrapper>
       <Content>
@@ -266,7 +298,7 @@ export default function Hero() {
               handled with thought and intention. Through your dedicated coordinator, life stays aligned, on
               time, and under control. Nothing escalates. Nothing surprises. It is simply handled. Intelligently.
             </Subheadline>
-            <CtaLink href="#contact" ref={ctaRef}>
+            <CtaLink href="#contact" ref={ctaRef} onClick={handleScroll}>
               GET ON THE LIST <ArrowHorizontal width="25px" color="#ee552f" />
             </CtaLink>
           </GridCol>
@@ -276,7 +308,7 @@ export default function Hero() {
           <GridContainer>
             <GridCol $span={2} $start={4} $tabletSpan={4} $tabletStart={1} $mobileSpan={4} $mobileStart={1}>
               <NavItem ref={addToNavRefs}>
-                <NavLink href="#memberships">Memberships</NavLink>
+                <NavLink href="#memberships" onClick={handleScroll}>Memberships</NavLink>
                 <NavArrow>
                   <ArrowVertical width="12px" color="#ee552f" />
                 </NavArrow>
@@ -284,7 +316,7 @@ export default function Hero() {
             </GridCol>
             <GridCol $span={2} $start={6} $tabletSpan={4} $tabletStart={5} $mobileSpan={4} $mobileStart={1}>
               <NavItem ref={addToNavRefs}>
-                <NavLink href="#scope">Our Scope</NavLink>
+                <NavLink href="#scope" onClick={handleScroll}>Our Scope</NavLink>
                 <NavArrow>
                   <ArrowVertical width="12px" color="#ee552f" />
                 </NavArrow>
@@ -292,7 +324,7 @@ export default function Hero() {
             </GridCol>
             <GridCol $span={2} $start={8} $tabletSpan={4} $tabletStart={9} $mobileSpan={4} $mobileStart={1}>
               <NavItem ref={addToNavRefs}>
-                <NavLink href="#why-adhoc">Why Adhoc?</NavLink>
+                <NavLink href="#why-adhoc" onClick={handleScroll}>Why Adhoc?</NavLink>
                 <NavArrow>
                   <ArrowVertical width="12px" color="#ee552f" />
                 </NavArrow>

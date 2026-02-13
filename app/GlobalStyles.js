@@ -21,8 +21,8 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     scroll-behavior: smooth;
     font-family: "sofia-pro", sans-serif;
-    background: transparent;
     color: #fff;
+    background-color: transparent; /* Revert body background to transparent */
   }
 
   a {

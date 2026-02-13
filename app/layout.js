@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/aeg2zwn.css" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <StyledComponentsRegistry>
           <GlobalStyles />
           <LayoutWrapper>

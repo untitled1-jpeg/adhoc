@@ -9,7 +9,8 @@ const BackgroundWrapper = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -10; /* Deep background */
+  height: 100dvh;
+  z-index: -1; /* Above body background, below content */
   overflow: hidden;
   background-color: #000;
 `;
@@ -20,7 +21,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5); /* Adjusted to 50% as requested */
   z-index: 1;
 `;
 
@@ -31,7 +32,7 @@ const Video = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8; /* Increased base opacity since overlay handles legibility */
+  opacity: 1; /* Increased to full opacity to ensure visibility behind overlay */
   z-index: 0;
 `;
 

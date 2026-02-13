@@ -19,7 +19,7 @@ const SectionWrapper = styled.section`
   justify-content: center;
   text-align: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     height: auto;
     min-height: 100vh;
     padding: 100px 0; /* Rely on GridContainer padding */
@@ -44,7 +44,7 @@ const Headline = styled.h2`
     font-style: italic;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: clamp(2.2rem, 10vw, 3rem);
     margin-bottom: 2rem;
     text-align: left;
@@ -184,21 +184,29 @@ export default function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(elementsRef.current,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            once: true
-          }
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          once: true
         }
-      );
+      });
+
+      tl.fromTo(elementsRef.current[0], // Headline
+        { opacity: 0, filter: 'blur(55px)' },
+        { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: "power4.out" }
+      )
+        .fromTo(elementsRef.current.slice(1), // Form fields, options, submit, disclaimer
+          { opacity: 0, filter: 'blur(25px)' },
+          {
+            opacity: 1,
+            filter: 'blur(0px)',
+            stagger: 0.1,
+            duration: 1,
+            ease: "power3.out"
+          },
+          "-=1"
+        );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -212,11 +220,11 @@ export default function Contact() {
   return (
     <SectionWrapper id="contact" ref={sectionRef}>
       <GridContainer>
-        <GridCol $start={3} $span={8} $mobileStart={1} $mobileSpan={12} ref={addToElementsRef}>
+        <GridCol $start={3} $span={8} $tabletStart={2} $tabletSpan={10} $mobileStart={1} $mobileSpan={12} ref={addToElementsRef}>
           <Headline>Get on the list and<br /><em>get your life back.</em></Headline>
         </GridCol>
 
-        <GridCol $start={4} $span={6} $mobileStart={1} $mobileSpan={12}>
+        <GridCol $start={4} $span={6} $tabletStart={2} $tabletSpan={10} $mobileStart={1} $mobileSpan={12}>
           <Form>
             <FormGroup ref={addToElementsRef}>
               <Label htmlFor="name">Full name</Label>
@@ -252,12 +260,12 @@ export default function Contact() {
 
             <div ref={addToElementsRef} style={{ display: 'flex' }} className="submit-wrapper">
               <style jsx>{`
-                @media (max-width: 768px) {
+                @media (max-width: 767px) {
                   .submit-wrapper {
                     justify-content: flex-start !important;
                   }
                 }
-                @media (min-width: 769px) {
+                @media (min-width: 768px) {
                   .submit-wrapper {
                     justify-content: center;
                   }

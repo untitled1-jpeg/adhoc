@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 const MainContent = styled.div`
   opacity: ${props => props.$isLoading ? 0 : 1};
   visibility: ${props => props.$isLoading ? 'hidden' : 'visible'};
-  min-height: 100vh;
+  min-height: 100dvh; /* Updated to use 100dvh */
   display: flex;
   flex-direction: column;
   transition: opacity 1s ease; /* Backup transition */
@@ -66,9 +66,8 @@ export default function LayoutWrapper({ children }) {
         revealContent();
     }, [revealContent]);
 
-    // Prevent hydration mismatch
     if (!isClient) {
-        return <div style={{ opacity: 0, background: '#000', minHeight: '100vh' }}>{children}</div>;
+        return <div style={{ opacity: 0, background: '#000', minHeight: '100dvh' }}>{children}</div>;
     }
 
     return (

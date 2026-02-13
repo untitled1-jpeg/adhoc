@@ -50,7 +50,7 @@ const LogoLink = styled(Link)`
     height: auto;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: ${props => props.$scrolled ? '110px' : '154px'};
   }
 `;

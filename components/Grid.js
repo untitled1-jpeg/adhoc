@@ -19,7 +19,13 @@ export const GridContainer = styled.div`
 
   /* Tablet Range (e.g., iPad Mini to iPad Pro) */
   @media (min-width: 481px) and (max-width: 1024px) {
-    max-width: 70vw; /* Tighter pinch for premium tablet feel */
+    /* Removed max-width restriction to prevent inconsistent margins */
+    padding: 0 40px; /* Match laptop padding for consistency */
+  }
+
+  /* Phablet/Small Tablet Range (User Preferred "Narrow" Look) */
+  @media (min-width: 481px) and (max-width: 768px) {
+    max-width: 70vw;
     padding: 0 30px;
   }
   
@@ -37,8 +43,23 @@ export const GridCol = styled.div`
     ? `${props.$start} / span ${props.$span || 1}`
     : `span ${props.$span || 12}`};
   
-  @media (max-width: 768px) {
-    grid-column: 1 / -1; /* Full width on mobile by default */
+  @media (max-width: 1024px) {
+    ${props => props.$tabletSpan && `
+      grid-column: ${props.$tabletStart
+      ? `${props.$tabletStart} / span ${props.$tabletSpan}`
+      : `span ${props.$tabletSpan}`};
+    `}
+  }
+
+  @media (max-width: 767px) {
+    grid-column: ${props => props.$mobileStart
+    ? `${props.$mobileStart} / span ${props.$mobileSpan || 12}`
+    : `1 / -1`}; 
+  }
+
+  /* Force full width on standard mobile (4-col grid) */
+  @media (max-width: 480px) {
+    grid-column: 1 / -1;
   }
 `;
 

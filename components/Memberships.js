@@ -12,13 +12,14 @@ gsap.registerPlugin(ScrollTrigger);
 const SectionWrapper = styled.section`
   color: #fff;
   height: 100vh;
+  height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     height: auto;
     min-height: 100vh;
     padding: 100px 0;
@@ -36,7 +37,7 @@ const Eyebrow = styled.span`
   display: block;
   text-align: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     text-align: left;
     margin-bottom: 1rem; /* Reduced from 2.5rem */
   }
@@ -52,7 +53,7 @@ const Description = styled.h2`
   max-width: 740px;
   margin: 0 auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 1.5rem;
     text-align: left;
     margin: 0;
@@ -78,7 +79,7 @@ const NoPaddingGrid = styled(GridContainer)`
   @media (max-width: 1024px) {
     padding: 0;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0 30px; /* Force sync with standard GridContainer padding if overridden */
   }
 `;
@@ -117,7 +118,7 @@ const TierHours = styled.span`
   display: block;
   color: #fff;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     margin-bottom: 0.6rem; /* Reduced from 1.2rem */
   }
 `;
@@ -128,7 +129,7 @@ const Separator = styled.div`
   background-color: #ee552f;
   margin: 0 0 1.2rem 0;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     margin-bottom: 0.6rem; /* Reduced from 1.2rem */
   }
 `;
@@ -141,9 +142,9 @@ const TierDescription = styled.p`
   max-width: 280px;
   margin: 0 0 2rem 0;
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0;
-    margin-bottom: 1.5rem; /* Reduced from 3rem */
+    margin-bottom: 2rem; /* Standardized to ~32px */
   }
 `;
 
@@ -154,13 +155,17 @@ const CtaWrapper = styled.div`
   @media (max-width: 900px) {
     margin-top: 2rem;
   }
+
+  @media (max-width: 767px) {
+    margin-top: -7px; /* Adjusted for 45px visual gap */
+  }
 `;
 
 const CenteredGridCol = styled(GridCol)`
   display: flex;
   justify-content: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     justify-content: flex-start;
   }
 `;
@@ -209,14 +214,38 @@ export default function Memberships() {
       });
 
       tl.fromTo([titleRef.current, descriptionRef.current],
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power3.out" }
+        { opacity: 0, filter: 'blur(55px)' },
+        { opacity: 1, filter: 'blur(0px)', stagger: 0.3, duration: 1.5, ease: "power4.out" }
       )
-        .fromTo(cardsRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.15, duration: 1, ease: "power3.out" },
-          "-=0.6"
-        );
+        .addLabel("cards", "-=0.8");
+
+      cardsRef.current.forEach((card, i) => {
+        const title = card.querySelector('h3');
+        const hours = card.querySelector('span'); // TierHours
+        const separator = card.querySelector('div'); // Separator
+        const desc = card.querySelector('p'); // TierDescription
+
+        tl.fromTo(title,
+          { opacity: 0, filter: 'blur(35px)' },
+          { opacity: 1, filter: 'blur(0px)', duration: 0.8 },
+          `cards+=${i * 0.25}`
+        )
+          .fromTo(hours,
+            { opacity: 0, filter: 'blur(15px)' },
+            { opacity: 1, filter: 'blur(0px)', duration: 0.6 },
+            "-=0.4"
+          )
+          .fromTo(separator,
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: "power2.inOut" },
+            "-=0.4"
+          )
+          .fromTo(desc,
+            { opacity: 0, filter: 'blur(15px)' },
+            { opacity: 1, filter: 'blur(0px)', duration: 0.8 },
+            "-=0.6"
+          );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -237,7 +266,7 @@ export default function Memberships() {
           <Description ref={descriptionRef}>
             A private membership that pairs individuals and
             families with a dedicated coordinator to manage
-            all of the moving parts of their lives.
+            all of the moving parts of their&nbsp;lives.
           </Description>
         </GridCol>
       </GridContainer>

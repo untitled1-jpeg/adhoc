@@ -11,15 +11,17 @@ gsap.registerPlugin(ScrollTrigger);
 const SectionWrapper = styled.section`
   color: #fff;
   height: 100vh;
+  height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     height: auto;
     min-height: 100vh;
+    min-height: 100dvh;
     padding: 100px 0;
     justify-content: flex-start;
   }
@@ -35,9 +37,9 @@ const Eyebrow = styled.span`
   display: block;
   text-align: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem; /* Reduced to tighten layout */
   }
 `;
 
@@ -47,16 +49,16 @@ const Description = styled.h2`
   font-weight: 400;
   line-height: 1.3;
   text-align: center;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem; /* Balanced intermediate spacing */
   color: #fff;
   max-width: 740px;
   margin-left: auto;
   margin-right: auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 1.5rem;
     text-align: left;
-    margin: 0 0 3rem 0;
+    margin: 0 0 2rem 0; /* Standardized to ~32px */
     max-width: 100%;
   }
 `;
@@ -70,7 +72,7 @@ const ScopeGrid = styled(GridContainer)`
   @media (max-width: 1024px) {
     padding: 0 40px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0;
   }
 `;
@@ -79,7 +81,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0 40px;
     margin-bottom: 3rem;
   }
@@ -142,14 +144,32 @@ export default function Scope() {
       });
 
       tl.fromTo(headlineRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+        { opacity: 0, filter: 'blur(55px)' },
+        { opacity: 1, filter: 'blur(0px)', duration: 1.5, ease: "power4.out" }
       )
-        .fromTo(columnsRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.1, duration: 1, ease: "power3.out" },
-          "-=0.7"
-        );
+        .addLabel("columns", "-=0.8");
+
+      columnsRef.current.forEach((col, i) => {
+        const title = col.querySelector('h3');
+        const separator = col.querySelector('div'); // The Separator styled component
+        const items = col.querySelectorAll('li');
+
+        tl.fromTo(title,
+          { opacity: 0, filter: 'blur(25px)' },
+          { opacity: 1, filter: 'blur(0px)', duration: 0.8 },
+          `columns+=${i * 0.2}`
+        )
+          .fromTo(separator,
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: "power2.inOut" },
+            "-=0.4"
+          )
+          .fromTo(items,
+            { opacity: 0, filter: 'blur(15px)' },
+            { opacity: 1, filter: 'blur(0px)', stagger: 0.1, duration: 0.6 },
+            "-=0.6"
+          );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -175,7 +195,7 @@ export default function Scope() {
       </GridContainer>
 
       <ScopeGrid>
-        <GridCol $start={1} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={1} $span={3} $tabletStart={1} $tabletSpan={6} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Personal</ColumnTitle>
             <Separator />
@@ -188,7 +208,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={4} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={4} $span={3} $tabletStart={7} $tabletSpan={6} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Family</ColumnTitle>
             <Separator />
@@ -203,7 +223,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={7} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={7} $span={3} $tabletStart={1} $tabletSpan={6} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Home</ColumnTitle>
             <Separator />
@@ -217,7 +237,8 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={10} $span={3} ref={addToColumnRefs}>
+
+        <GridCol $start={10} $span={3} $tabletStart={7} $tabletSpan={6} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Professional</ColumnTitle>
             <Separator />
@@ -228,7 +249,7 @@ export default function Scope() {
             </List>
           </Column>
         </GridCol>
-      </ScopeGrid>
-    </SectionWrapper>
+      </ScopeGrid >
+    </SectionWrapper >
   );
 }
