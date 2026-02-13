@@ -25,7 +25,7 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1280px;
   padding: 0 2rem;
 `;
 
