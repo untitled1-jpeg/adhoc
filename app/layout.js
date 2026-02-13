@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
       <body>
         <StyledComponentsRegistry>
           <GlobalStyles />
-          <FixedBackground />
           <LayoutWrapper>
             {children}
           </LayoutWrapper>

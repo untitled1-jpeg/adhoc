@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
 import Preloader from './Preloader';
+import FixedBackground from './FixedBackground';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -63,6 +64,7 @@ export default function LayoutWrapper({ children }) {
                 id="main-content"
                 $isLoading={isLoading}
             >
+                <FixedBackground />
                 <Header />
                 <Content>{children}</Content>
                 <Footer />
