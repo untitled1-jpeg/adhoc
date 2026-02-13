@@ -46,7 +46,7 @@ const Description = styled.h2`
 `;
 
 const ScopeGrid = styled(GridContainer)`
-  column-gap: 70px; /* Increased to 70px per feedback */
+  column-gap: 20px; /* Standardized with GridContainer */
   
   @media (max-width: 1550px) {
     column-gap: 40px;
@@ -69,7 +69,9 @@ const ColumnTitle = styled.h3`
 
 const List = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 0 40px;
+  
+  /* Laptops (around 1500px) */
   margin: 0;
 `;
 
@@ -143,7 +145,7 @@ export default function Scope() {
       </GridContainer>
 
       <ScopeGrid>
-        <GridCol $start={1} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={3} $span={2} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Personal</ColumnTitle>
             <List>
@@ -155,7 +157,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={4} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={5} $span={2} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Family</ColumnTitle>
             <List>
@@ -169,7 +171,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={7} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={7} $span={2} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Home</ColumnTitle>
             <List>
@@ -182,7 +184,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={10} $span={3} ref={addToColumnRefs}>
+        <GridCol $start={9} $span={2} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Professional</ColumnTitle>
             <List>

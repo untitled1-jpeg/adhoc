@@ -58,13 +58,13 @@ export default function LayoutWrapper({ children }) {
 
     return (
         <>
+            <FixedBackground />
             {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
             <MainContent
                 ref={mainContentRef}
                 id="main-content"
                 $isLoading={isLoading}
             >
-                <FixedBackground />
                 <Header />
                 <Content>{children}</Content>
                 <Footer />
