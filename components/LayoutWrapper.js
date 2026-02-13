@@ -53,7 +53,7 @@ export default function LayoutWrapper({ children }) {
 
     // Prevent hydration mismatch
     if (!isClient) {
-        return <div style={{ opacity: 0 }}>{children}</div>;
+        return <div style={{ opacity: 0, background: '#000', minHeight: '100vh' }}>{children}</div>;
     }
 
     return (
