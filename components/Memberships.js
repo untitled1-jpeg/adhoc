@@ -198,7 +198,7 @@ export default function Memberships() {
       <TiersGrid>
         <GridContainer>
           {/* Essential */}
-          <GridCol $start={1} $span={3}>
+          <GridCol $start={1} $span={4}>
             <TierCard ref={addToCardRefs}>
               <TierTitle>Essential</TierTitle>
               <TierHours>50 hours per month</TierHours>
@@ -222,7 +222,7 @@ export default function Memberships() {
           </GridCol>
 
           {/* Exclusive */}
-          <GridCol $start={10} $span={3}>
+          <GridCol $start={9} $span={4}>
             <TierCard ref={addToCardRefs}>
               <TierTitle>Exclusive</TierTitle>
               <TierHours>Full-time coordination</TierHours>
