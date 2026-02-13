@@ -53,10 +53,10 @@ const TiersGrid = styled.div`
 `;
 
 const TierCard = styled.div`
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
   
   @media (max-width: 900px) {
@@ -90,7 +90,7 @@ const Separator = styled.div`
   width: 140px;
   height: 1px;
   background-color: #ee552f;
-  margin: 0 auto 1.5rem;
+  margin: 0 0 1.5rem 0;
 `;
 
 const TierDescription = styled.p`
@@ -99,7 +99,7 @@ const TierDescription = styled.p`
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   max-width: 280px;
-  margin: 0 auto 3rem;
+  margin: 0 0 3rem 0;
   
   @media (max-width: 900px) {
     max-width: 100%;
@@ -108,7 +108,7 @@ const TierDescription = styled.p`
 `;
 
 const CtaWrapper = styled.div`
-  margin-top: 4rem;
+  margin-top: 1rem;
   width: 100%;
   display: flex;
   justify-content: center;
