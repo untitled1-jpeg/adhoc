@@ -40,7 +40,7 @@ const Line = styled.div`
 
 const LogoLink = styled(Link)`
   display: block;
-  width: ${props => props.$scrolled ? '150px' : '220px'};
+  width: ${props => props.$scrolled ? '165px' : '242px'};
   transition: width 0.4s ease;
   
   svg {
@@ -49,7 +49,7 @@ const LogoLink = styled(Link)`
   }
 
   @media (max-width: 768px) {
-    width: ${props => props.$scrolled ? '100px' : '140px'};
+    width: ${props => props.$scrolled ? '110px' : '154px'};
   }
 `;
 
