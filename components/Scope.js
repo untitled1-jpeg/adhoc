@@ -38,7 +38,7 @@ const Eyebrow = styled.span`
   text-align: center;
 
   @media (max-width: 767px) {
-    text-align: left;
+    text-align: center;
     margin-bottom: 0.5rem; /* Reduced to tighten layout */
   }
 `;
@@ -57,7 +57,7 @@ const Description = styled.h2`
 
   @media (max-width: 767px) {
     font-size: 1.5rem;
-    text-align: left;
+    text-align: center;
     margin: 0 0 2rem 0; /* Standardized to ~32px */
     max-width: 100%;
   }
@@ -82,7 +82,7 @@ const Column = styled.div`
   flex-direction: column;
 
   @media (max-width: 767px) {
-    padding: 0 40px;
+    padding: 0 30px; /* Reduced from 40px as requested */
     margin-bottom: 3rem;
   }
 `;

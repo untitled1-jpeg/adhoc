@@ -28,16 +28,22 @@ const ContentContainer = styled.div`
 `;
 
 const LogoContainer = styled.div`
+  position: relative;
+  z-index: 100;
+  padding: ${props => props.$scrolled ? '1.2rem 4rem 1rem' : '0'}; /* Reduced from supercharged size */
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${props => props.$scrolled ? '0.85rem 2rem' : '1rem 2rem'};
-  border-radius: ${props => props.$scrolled ? '40px' : '0'};
-  background: ${props => props.$scrolled
-    ? 'radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%)'
-    : 'transparent'};
-  backdrop-filter: ${props => props.$scrolled ? 'blur(15px)' : 'none'};
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Softer/Smoother Gradient */
+  background: ${props => props.$scrolled ? 'radial-gradient(ellipse at center, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0) 80%)' : 'transparent'};
+  
+  /* Mask edges */
+  mask-image: ${props => props.$scrolled ? 'radial-gradient(ellipse at center, black 40%, transparent 80%)' : 'none'};
+  -webkit-mask-image: ${props => props.$scrolled ? 'radial-gradient(ellipse at center, black 40%, transparent 80%)' : 'none'};
+  
+  border-radius: 0;
 `;
 
 const LogoLink = styled(Link)`
@@ -51,7 +57,7 @@ const LogoLink = styled(Link)`
   }
 
   @media (max-width: 767px) {
-    width: ${props => props.$scrolled ? '110px' : '154px'};
+    width: ${props => props.$scrolled ? '85px' : '154px'};
   }
 `;
 
@@ -60,11 +66,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);

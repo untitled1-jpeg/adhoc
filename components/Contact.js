@@ -47,7 +47,7 @@ const Headline = styled.h2`
   @media (max-width: 767px) {
     font-size: clamp(2.2rem, 10vw, 3rem);
     margin-bottom: 2rem;
-    text-align: left;
+    text-align: center;
     margin-left: 0;
     max-width: 100%;
   }
@@ -58,13 +58,13 @@ const Form = styled.form`
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 1.05rem; /* Reduced by 40% per previous request */
+  margin-bottom: 0.5rem; /* Drastically reduced from 1.05rem */
   display: flex;
   flex-direction: column;
   text-align: left;
 
   @media (max-width: 600px) {
-    margin-bottom: 0.75rem; /* Even tighter on mobile */
+    margin-bottom: 0.4rem; /* Even tighter on mobile */
   }
 `;
 
@@ -73,18 +73,18 @@ const Label = styled.label`
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #fff; /* Updated to pure white */
-  margin-bottom: 0.4rem;
+  color: #fff;
+  margin-bottom: 0.2rem; /* Reduced label margin */
 `;
 
 const Input = styled.input`
   background: transparent;
   border: none;
-  border-bottom: 1px solid #fff; /* Updated to pure white */
-  padding: 0.45rem 0; /* Reduced by 40% */
+  border-bottom: 1px solid #fff;
+  padding: 0.2rem 0; /* Reduced from 0.45rem */
   color: #fff;
   font-family: "sofia-pro", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem; /* Slightly smaller font for tighter feel */
   outline: none;
   transition: border-color 0.3s ease;
   
@@ -101,7 +101,7 @@ const OptionsGrid = styled.div`
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 2rem 0; /* Reduced from 3rem */
+  margin: 1.5rem 0; /* Reduced from 2rem */
   
   @media (max-width: 600px) {
     flex-direction: column;

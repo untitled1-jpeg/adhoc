@@ -28,6 +28,10 @@ const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem; /* Brought closer together as requested */
+  
+  @media (max-width: 767px) {
+    align-items: center; /* Center logo on mobile */
+  }
 `;
 
 const Copyright = styled.span`
@@ -39,7 +43,8 @@ const Copyright = styled.span`
 
   @media (max-width: 767px) {
     display: ${props => props.$mobileOnly ? 'block' : 'none'};
-    text-align: left;
+    text-align: center; /* Center copyright */
+    width: 100%;
     margin-top: 4rem;
   }
 `;
@@ -52,6 +57,7 @@ const NavColumn = styled.div`
   @media (max-width: 767px) {
     margin-top: ${props => props.$isSecond ? '1rem' : '3rem'};
     gap: 1rem;
+    align-items: center; /* Center links on mobile */
   }
 `;
 
@@ -76,7 +82,7 @@ const Definition = styled.div`
   @media (max-width: 767px) {
     margin-top: 4rem;
     max-width: 100%;
-    text-align: left;
+    text-align: center; /* Center definition */
   }
   
   strong {
@@ -112,6 +118,28 @@ export default function Footer() {
                 style={{ objectFit: 'contain' }}
               />
             </Link>
+            {/* The animation logic provided in the instruction is not valid JSX and appears to be
+                part of a JavaScript animation library (e.g., GSAP) that would typically reside
+                within a useEffect hook or a separate function. Since this file does not contain
+                the context for `linksRef` or `tl`, and to maintain syntactical correctness,
+                this animation code cannot be directly inserted here.
+                
+                If there is an animation elsewhere that targets footer links, ensure its `stagger`
+                property is set to 0 as per the instruction.
+                
+                For example, if you have a GSAP animation:
+                
+                if (linksRef.current.length > 0) {
+                  tl.to(linksRef.current, {
+                    y: 0,
+                    autoAlpha: 1,
+                    filter: 'blur(0px)',
+                    duration: 1.2,
+                    stagger: 0, // Set stagger to 0 here
+                    ease: 'power3.out'
+                  }, "-=1.0");
+                }
+            */}
             <Copyright>©{currentYear} Adhoc</Copyright>
           </LogoWrapper>
         </GridCol>

@@ -15,14 +15,23 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
-  html,
+  html {
+    background-color: #000; /* Fix overscroll white bar */
+    width: 100%;
+    height: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* Universal smooth scroll */
+  }
+
   body {
-    max-width: 100vw;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
     scroll-behavior: smooth;
     font-family: "sofia-pro", sans-serif;
     color: #fff;
-    background-color: transparent; /* Revert body background to transparent */
+    background-color: transparent; /* Transparent to show FixedBackground video */
   }
 
   a {

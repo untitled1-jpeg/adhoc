@@ -38,7 +38,7 @@ const Eyebrow = styled.span`
   text-align: center;
 
   @media (max-width: 767px) {
-    text-align: left;
+    text-align: center;
     margin-bottom: 1rem; /* Reduced from 2.5rem */
   }
 `;
@@ -55,7 +55,7 @@ const Description = styled.h2`
 
   @media (max-width: 767px) {
     font-size: 1.5rem;
-    text-align: left;
+    text-align: center;
     margin: 0;
     max-width: 100%;
   }
@@ -66,7 +66,11 @@ const TiersGrid = styled.div`
   width: 100%;
   
   @media (max-width: 900px) {
-    margin-top: 2rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 767px) {
+    margin-top: 4.5rem; /* Increased mobile spacing as requested */
   }
 `;
 

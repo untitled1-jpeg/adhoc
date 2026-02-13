@@ -43,7 +43,7 @@ const Eyebrow = styled.span`
   width: 100%;
 
   @media (max-width: 767px) {
-    text-align: left;
+    text-align: center; /* Center align */
     margin-bottom: 1rem;
   }
 `;
@@ -61,8 +61,9 @@ const Headline = styled.h2`
 
   @media (max-width: 767px) {
     font-size: 1.5rem;
-    text-align: left;
-    margin-left: 0;
+    text-align: center; /* Center align */
+    margin-left: auto;
+    margin-right: auto;
     max-width: 100%;
     margin-bottom: 2rem; /* Standardized spacing */
   }
@@ -79,8 +80,9 @@ const Description = styled.p`
   margin-right: auto;
 
   @media (max-width: 767px) {
-    text-align: left;
-    margin-left: 0;
+    text-align: center; /* Center align */
+    margin-left: auto;
+    margin-right: auto;
     max-width: 100%;
     margin-bottom: 2rem; /* Standardized spacing */
   }
@@ -181,7 +183,7 @@ const CtaWrapper = styled.div`
   margin-top: 3.5rem;
 
   @media (max-width: 767px) {
-    justify-content: flex-start;
+    justify-content: center; /* Center align */
     margin-top: 2rem;
   }
 `;

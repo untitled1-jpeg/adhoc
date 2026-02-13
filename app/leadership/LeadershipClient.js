@@ -45,6 +45,10 @@ const Info = styled.div`
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2rem; /* Added space before main bio on mobile */
   }
+
+  @media (max-width: 767px) {
+    text-align: center;
+  }
 `;
 
 const Content = styled.div`
@@ -62,6 +66,23 @@ const Title = styled.h1`
   margin: 0;
 `;
 
+const PageHeadline = styled.h4`
+  font-family: "ivyora-display", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 0.35rem; /* Reduced from 0.75rem */
+  color: #fff;
+  line-height: 1.1;
+  margin-top: -0.65rem; /* Middle ground alignment */
+
+  @media (max-width: 767px) {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+`;
+
 const SubHeadline = styled.h2`
   font-family: "ivyora-display", serif;
   font-size: 1.8rem; /* Correcting to H3 style size */
@@ -71,7 +92,7 @@ const SubHeadline = styled.h2`
   margin: 0;
 
   @media (max-width: 767px) {
-    font-size: 1.5rem;
+    text-align: center;
   }
 `;
 
@@ -80,6 +101,10 @@ const Separator = styled.div`
   height: 1px;
   background-color: #ee552f;
   margin: 0;
+
+  @media (max-width: 767px) {
+    margin: 0 auto 2rem auto; /* Center separator */
+  }
 `;
 
 const BioText = styled.p`
@@ -88,6 +113,10 @@ const BioText = styled.p`
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
+
+  @media (max-width: 767px) {
+    text-align: center;
+  }
 `;
 
 export default function LeadershipClient() {
@@ -149,7 +178,7 @@ export default function LeadershipClient() {
         {/* Right Column: Bio Content */}
         <GridCol $start={6} $span={6}>
           <Content ref={contentRef}>
-            <Title>Our Leadership</Title>
+            <PageHeadline>Our Leadership</PageHeadline>
             <SubHeadline>
               Holly Moon is the President & CEO of Adhoc and a trusted operator with more than a decade of experience supporting executives, entrepreneurs, and families with complex lives.
             </SubHeadline>
