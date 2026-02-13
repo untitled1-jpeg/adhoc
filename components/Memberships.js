@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 12rem 0;
+  padding: 15rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,7 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
   display: block;
   text-align: center;
 `;
@@ -88,7 +88,7 @@ const TierHours = styled.span`
 
 const Separator = styled.div`
   width: 140px;
-  height: 1.5px;
+  height: 1px;
   background-color: #ee552f;
   margin: 0 auto 1.5rem;
 `;
@@ -129,7 +129,7 @@ const CtaLink = styled.a`
   color: #fff;
   cursor: pointer;
   text-decoration: none;
-  border-bottom: 1.5px solid #fff;
+  border-bottom: 1px solid #fff;
   padding-bottom: 0.6rem;
   transition: all 0.3s ease;
   width: fit-content;

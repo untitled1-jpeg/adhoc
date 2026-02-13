@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 6rem 0; /* Reduced from 8rem */
+  padding: 15rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,7 @@ const Headline = styled.h2`
   font-size: 3.75rem; /* 60px */
   font-weight: 400;
   line-height: 1.2;
-  margin-bottom: 3.5rem; /* Middle ground established */
+  margin-bottom: 4rem;
   color: #fff;
   
   em {
@@ -127,7 +127,7 @@ const Option = styled.label`
 const SubmitButton = styled.button`
   background: transparent;
   border: none;
-  border-bottom: 1.5px solid #fff;
+  border-bottom: 1px solid #fff;
   color: #fff;
   padding: 0.6rem 0; /* Reduced padding */
   font-family: "sofia-pro", sans-serif;

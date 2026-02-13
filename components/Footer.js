@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
 
 const FooterWrapper = styled.footer`
-  padding: 6rem 0;
+  padding: 10rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   position: relative;

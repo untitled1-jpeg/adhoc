@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { GridContainer, GridCol } from '@/components/Grid';
 
 const PageWrapper = styled.div`
-  padding: 12rem 0 8rem;
+  padding: 15rem 0 10rem;
   color: #fff;
   min-height: 100vh;
 `;

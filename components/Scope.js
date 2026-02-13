@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 120px 0;
+  padding: 15rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   display: block;
   text-align: center;
 `;

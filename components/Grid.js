@@ -7,9 +7,9 @@ export const GridContainer = styled.div`
   grid-template-columns: repeat(12, 1fr);
   column-gap: 20px;
   width: 100%;
-  max-width: 1700px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 120px;
   
   /* Laptops (around 1500px) */
   @media (max-width: 1550px) {

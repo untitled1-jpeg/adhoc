@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 12rem 0;
+  padding: 15rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +64,7 @@ const CtaLink = styled.a`
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-  border-bottom: 1.5px solid #fff;
+  border-bottom: 1px solid #fff;
   padding-bottom: 0.5rem;
   transition: all 0.3s ease;
   width: fit-content;
