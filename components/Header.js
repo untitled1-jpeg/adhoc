@@ -75,7 +75,6 @@ export default function Header() {
         <LogoLink href="/" $scrolled={scrolled}>
           <Logo width="100%" color="#fff" />
         </LogoLink>
-        <Line $scrolled={scrolled} />
       </ContentContainer>
     </HeaderWrapper>
   );
