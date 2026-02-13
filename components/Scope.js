@@ -22,7 +22,7 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 4rem;
+  margin-bottom: 60px;
   display: block;
   text-align: center;
 `;
