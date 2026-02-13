@@ -25,6 +25,9 @@ const Headline = styled.h2`
   line-height: 1.2;
   margin-bottom: 4rem;
   color: #fff;
+  max-width: 740px;
+  margin-left: auto;
+  margin-right: auto;
   
   em {
     font-family: "ivyora-display", serif;

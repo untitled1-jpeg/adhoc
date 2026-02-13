@@ -35,7 +35,7 @@ const Headline = styled.h2`
   line-height: 1.3;
   color: #fff;
   margin-bottom: 3rem; /* Reduced from 6rem */
-  max-width: 900px;
+  max-width: 740px;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
