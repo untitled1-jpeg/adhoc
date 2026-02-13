@@ -198,7 +198,7 @@ export default function Memberships() {
       <TiersGrid>
         <GridContainer>
           {/* Essential */}
-          <GridCol $start={1} $span={4}>
+          <GridCol $start={1} $span={3}>
             <TierCard ref={addToCardRefs}>
               <TierTitle>Essential</TierTitle>
               <TierHours>50 hours per month</TierHours>
@@ -222,7 +222,7 @@ export default function Memberships() {
           </GridCol>
 
           {/* Exclusive */}
-          <GridCol $start={9} $span={4}>
+          <GridCol $start={10} $span={3}>
             <TierCard ref={addToCardRefs}>
               <TierTitle>Exclusive</TierTitle>
               <TierHours>Full-time coordination</TierHours>
@@ -237,7 +237,7 @@ export default function Memberships() {
 
       <CtaWrapper>
         <GridContainer>
-          <GridCol $start={5} $span={8} style={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <GridCol $span={12} style={{ display: 'flex', justifyContent: 'center' }}>
             <CtaLink href="#contact">
               GET ON THE LIST <ArrowHorizontal width="20px" color="#ee552f" />
             </CtaLink>
