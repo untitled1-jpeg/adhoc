@@ -69,7 +69,7 @@ const ColumnTitle = styled.h3`
 
 const List = styled.ul`
   list-style: none;
-  padding: 0 0 0 1.5rem;
+  padding: 0 0 0 2.5rem;
   margin: 0;
 `;
 
