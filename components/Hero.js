@@ -31,10 +31,10 @@ const HeroWrapper = styled.section`
 `;
 
 const Content = styled.div`
-  text-align: left;
+  text-align: center;
   z-index: 1;
   width: 100%;
-  padding: 0;
+  padding: 0 20px;
 `;
 
 const Headline = styled.h1`
@@ -120,7 +120,7 @@ const BottomNav = styled.div`
 const NavItem = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   
   @media (max-width: 768px) {
@@ -158,8 +158,7 @@ const NavLink = styled.a`
 
 const NavArrow = styled.div`
   display: flex;
-  justify-content: flex-start;
-  width: 100%;
+  justify-content: center;
   transition: all 0.3s ease;
   
   ${NavItem}:hover & {
@@ -243,13 +242,13 @@ export default function Hero() {
     <HeroWrapper>
       <Content>
         <GridContainer style={{ height: 'auto' }}>
-          <GridCol $start={1} $span={10} $tabletSpan={12} $mobileSpan={12} $mobileStart={1}>
+          <GridCol $start={3} $span={8} $tabletSpan={10} $tabletStart={2} $mobileSpan={12} $mobileStart={1}>
             <Headline ref={headlineRef}>
               <span style={{ display: 'block' }}>Your life.</span>
               <em>Intelligently coordinated.</em>
             </Headline>
           </GridCol>
-          <GridCol $start={1} $span={8} $tabletSpan={12} $mobileSpan={12} $mobileStart={1}>
+          <GridCol $start={4} $span={6} $tabletSpan={8} $tabletStart={3} $mobileSpan={12} $mobileStart={1}>
             <Subheadline ref={subheadlineRef}>
               Latin for “for this purpose,” Adhoc exists to keep complex lives running without friction.
               We oversee the details others miss. From logistics to schedules and contingencies, everything is
@@ -264,7 +263,7 @@ export default function Hero() {
 
         <BottomNav>
           <GridContainer>
-            <GridCol $span={2} $start={1} $tabletSpan={4} $tabletStart={1} $mobileSpan={4} $mobileStart={1}>
+            <GridCol $span={2} $start={4} $tabletSpan={4} $tabletStart={1} $mobileSpan={4} $mobileStart={1}>
               <NavItem ref={addToNavRefs}>
                 <NavLink href="#memberships">Memberships</NavLink>
                 <NavArrow>
@@ -272,7 +271,7 @@ export default function Hero() {
                 </NavArrow>
               </NavItem>
             </GridCol>
-            <GridCol $span={2} $start={3} $tabletSpan={4} $tabletStart={5} $mobileSpan={4} $mobileStart={1}>
+            <GridCol $span={2} $start={6} $tabletSpan={4} $tabletStart={5} $mobileSpan={4} $mobileStart={1}>
               <NavItem ref={addToNavRefs}>
                 <NavLink href="#scope">Our Scope</NavLink>
                 <NavArrow>
@@ -280,7 +279,7 @@ export default function Hero() {
                 </NavArrow>
               </NavItem>
             </GridCol>
-            <GridCol $span={2} $start={5} $tabletSpan={4} $tabletStart={9} $mobileSpan={4} $mobileStart={1}>
+            <GridCol $span={2} $start={8} $tabletSpan={4} $tabletStart={9} $mobileSpan={4} $mobileStart={1}>
               <NavItem ref={addToNavRefs}>
                 <NavLink href="#why-adhoc">Why Adhoc?</NavLink>
                 <NavArrow>
