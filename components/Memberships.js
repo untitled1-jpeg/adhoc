@@ -52,6 +52,20 @@ const TiersGrid = styled.div`
   }
 `;
 
+const NoPaddingGrid = styled(GridContainer)`
+  padding: 0;
+  
+  @media (max-width: 1550px) {
+    padding: 0;
+  }
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
+  @media (max-width: 768px) {
+    padding: 0 40px; /* Keep some padding on mobile for legibility */
+  }
+`;
+
 const TierCard = styled.div`
   text-align: left;
   display: flex;
@@ -196,9 +210,9 @@ export default function Memberships() {
       </GridContainer>
 
       <TiersGrid>
-        <GridContainer>
+        <NoPaddingGrid>
           {/* Essential */}
-          <GridCol $start={4} $span={2}>
+          <GridCol $start={3} $span={2}>
             <TierCard ref={addToCardRefs}>
               <TierTitle>Essential</TierTitle>
               <TierHours>50 hours per month</TierHours>
@@ -222,7 +236,7 @@ export default function Memberships() {
           </GridCol>
 
           {/* Exclusive */}
-          <GridCol $start={8} $span={2}>
+          <GridCol $start={9} $span={3}>
             <TierCard ref={addToCardRefs}>
               <TierTitle>Exclusive</TierTitle>
               <TierHours>Full-time coordination</TierHours>
@@ -232,7 +246,7 @@ export default function Memberships() {
               </TierDescription>
             </TierCard>
           </GridCol>
-        </GridContainer>
+        </NoPaddingGrid>
       </TiersGrid>
 
       <CtaWrapper>
