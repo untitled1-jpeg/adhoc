@@ -38,8 +38,8 @@ const Video = styled.video`
 
 const StyledImage = styled(Image)`
   object-fit: cover;
-  opacity: 0.8;
-  z-index: -1; /* Behind video fallback */
+  opacity: 1; /* Full opacity for LCP */
+  z-index: 0; /* Same level as video to ensure visibility if video fails */
 `;
 
 import { useState, useEffect } from 'react';
@@ -67,7 +67,7 @@ export default function FixedBackground() {
       </Video>
       <StyledImage
         src="/img_background-fallback.webp"
-        alt="Background Fallback"
+        alt="Adhoc Private Life Coordination Cinematic Background"
         fill
         priority
         quality={100}

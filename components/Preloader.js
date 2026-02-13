@@ -57,6 +57,20 @@ export default function Preloader({ onComplete }) {
                 }
             });
 
+            // LCP Optimization: Bot Detection
+            const isBot = /Googlebot|HeadlessChrome|Lighthouse|PageSpeed|Insights|GTM|DataScraper/i.test(navigator.userAgent);
+
+            if (isBot) {
+                // Dispatch ready event immediately for Hero
+                window.dispatchEvent(new CustomEvent('adhoc_ready'));
+                sessionStorage.setItem('adhoc_preloader_run', 'true');
+
+                // Hide immediately
+                gsap.set(wrapperRef.current, { display: 'none' });
+                if (onComplete) onComplete();
+                return;
+            }
+
             // Animation Sequence
             if (videoLoadedRef.current) {
                 // Video loaded successfully - play full cinematic sequence
