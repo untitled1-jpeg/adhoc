@@ -56,6 +56,13 @@ export default function FixedBackground() {
 
   return (
     <BackgroundWrapper>
+      <StyledImage
+        src="/img_background-fallback.webp"
+        alt="Adhoc Private Life Coordination Cinematic Background"
+        fill
+        priority
+        quality={100}
+      />
       <Video
         autoPlay
         muted
@@ -65,13 +72,6 @@ export default function FixedBackground() {
       >
         <source src="/background_Adhoc.mp4" type="video/mp4" />
       </Video>
-      <StyledImage
-        src="/img_background-fallback.webp"
-        alt="Adhoc Private Life Coordination Cinematic Background"
-        fill
-        priority
-        quality={100}
-      />
       <Overlay $skipFlash={skipFlash} />
     </BackgroundWrapper>
   );
