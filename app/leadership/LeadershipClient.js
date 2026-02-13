@@ -5,18 +5,21 @@ import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
 
 const PageWrapper = styled.div`
-  padding-top: 240px; /* Increased from 220px for better balance */
-  padding-bottom: 12rem;
   min-height: 100vh;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 120px; /* Space for the logo */
+  padding-bottom: 2rem;
   color: #fff;
+  position: relative;
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1.1;
-  margin-bottom: 2rem;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 1rem; /* Brought closer to info text */
   
   img {
     object-fit: cover;
@@ -38,6 +41,7 @@ const Info = styled.div`
     font-family: "sofia-pro", sans-serif;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem; /* Added space before main bio on mobile */
   }
 `;
 
@@ -89,7 +93,7 @@ export default function LeadershipClient() {
     <PageWrapper>
       <GridContainer>
         {/* Left Column: Image & Contact Info */}
-        <GridCol $start={3} $span={3}>
+        <GridCol $start={2} $span={3}>
           <ImageWrapper>
             <Image
               src="/img_holly.jpg"
@@ -105,7 +109,7 @@ export default function LeadershipClient() {
         </GridCol>
 
         {/* Right Column: Bio Content */}
-        <GridCol $start={7} $span={5}>
+        <GridCol $start={6} $span={6}>
           <Content>
             <Title>Our Leadership</Title>
             <SubHeadline>

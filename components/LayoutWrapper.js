@@ -29,14 +29,15 @@ export default function LayoutWrapper({ children }) {
     const [isClient, setIsClient] = useState(false);
     const mainContentRef = useRef(null);
 
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
+    // Move reveal logic to a separate function for reuse
+    const revealContent = useCallback((skipAnim = false) => {
+        if (!mainContentRef.current) return;
 
-    // Stabilize the complete handler to prevent Preloader from re-triggering on Layout re-renders
-    const handlePreloaderComplete = useCallback(() => {
-        // Reveal content after preloader finishes
-        if (mainContentRef.current) {
+        if (skipAnim) {
+            gsap.set(mainContentRef.current, { visibility: 'visible', opacity: 1 });
+            setIsLoading(false);
+            window.dispatchEvent(new CustomEvent('adhoc_ready'));
+        } else {
             gsap.set(mainContentRef.current, { visibility: 'visible' });
             gsap.to(mainContentRef.current, {
                 opacity: 1,
@@ -44,12 +45,26 @@ export default function LayoutWrapper({ children }) {
                 ease: 'power2.out',
                 onComplete: () => {
                     setIsLoading(false);
-                    // Signal to children (like Hero) that entrance can begin
                     window.dispatchEvent(new CustomEvent('adhoc_ready'));
                 }
             });
         }
     }, []);
+
+    useEffect(() => {
+        setIsClient(true);
+
+        // Check if preloader has already run in this session
+        const hasRun = sessionStorage.getItem('adhoc_preloader_run');
+        if (hasRun) {
+            revealContent(true);
+        }
+    }, [revealContent]);
+
+    const handlePreloaderComplete = useCallback(() => {
+        sessionStorage.setItem('adhoc_preloader_run', 'true');
+        revealContent();
+    }, [revealContent]);
 
     // Prevent hydration mismatch
     if (!isClient) {

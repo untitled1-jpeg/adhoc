@@ -41,7 +41,18 @@ const StyledImage = styled(Image)`
   z-index: -1; /* Behind video fallback */
 `;
 
+import { useState, useEffect } from 'react';
+
 export default function FixedBackground() {
+  const [skipFlash, setSkipFlash] = useState(false);
+
+  useEffect(() => {
+    // If preloader has already run, we skip the initial black overlay to prevent flickering
+    if (sessionStorage.getItem('adhoc_preloader_run')) {
+      setSkipFlash(true);
+    }
+  }, []);
+
   return (
     <BackgroundWrapper>
       <Video
@@ -60,7 +71,7 @@ export default function FixedBackground() {
         priority
         quality={100}
       />
-      <Overlay />
+      <Overlay $skipFlash={skipFlash} />
     </BackgroundWrapper>
   );
 }

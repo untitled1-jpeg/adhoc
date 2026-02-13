@@ -11,10 +11,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 15rem 0;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0;
+    justify-content: flex-start;
+  }
 `;
 
 const Eyebrow = styled.span`
@@ -23,9 +32,14 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 60px;
+  margin-bottom: 2.5rem; /* Standardized to 40px */
   display: block;
   text-align: center;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    margin-bottom: 1rem; /* Reduced from 2.5rem */
+  }
 `;
 
 const Description = styled.h2`
@@ -40,6 +54,9 @@ const Description = styled.h2`
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
+    text-align: left;
+    margin: 0;
+    max-width: 100%;
   }
 `;
 
@@ -62,7 +79,7 @@ const NoPaddingGrid = styled(GridContainer)`
     padding: 0;
   }
   @media (max-width: 768px) {
-    padding: 0 40px; /* Keep some padding on mobile for legibility */
+    padding: 0 30px; /* Force sync with standard GridContainer padding if overridden */
   }
 `;
 
@@ -74,8 +91,9 @@ const TierCard = styled.div`
   height: 100%;
   
   @media (max-width: 900px) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem; /* Reduced from 2.5rem */
     height: auto;
+    padding: 0; /* Rely on GridContainer (NoPaddingGrid) padding */
   }
 `;
 
@@ -95,9 +113,13 @@ const TierTitle = styled.h3`
 const TierHours = styled.span`
   font-family: "sofia-pro", sans-serif;
   font-size: 1rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.2rem; /* Increased to match separator bottom margin for perfect centering */
   display: block;
   color: #fff;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.6rem; /* Reduced from 1.2rem */
+  }
 `;
 
 const Separator = styled.div`
@@ -105,6 +127,10 @@ const Separator = styled.div`
   height: 1px;
   background-color: #ee552f;
   margin: 0 0 1.2rem 0;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.6rem; /* Reduced from 1.2rem */
+  }
 `;
 
 const TierDescription = styled.p`
@@ -115,20 +141,27 @@ const TierDescription = styled.p`
   max-width: 280px;
   margin: 0 0 2rem 0;
   
-  @media (max-width: 900px) {
-    max-width: 100%;
-    margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    padding: 0;
+    margin-bottom: 1.5rem; /* Reduced from 3rem */
   }
 `;
 
 const CtaWrapper = styled.div`
   margin-top: 1rem;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  
+
   @media (max-width: 900px) {
     margin-top: 2rem;
+  }
+`;
+
+const CenteredGridCol = styled(GridCol)`
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
   }
 `;
 
@@ -251,11 +284,11 @@ export default function Memberships() {
 
       <CtaWrapper>
         <GridContainer>
-          <GridCol $span={12} style={{ display: 'flex', justifyContent: 'center' }}>
+          <CenteredGridCol $span={12} $mobileStart={1} $mobileSpan={12}>
             <CtaLink href="#contact">
               GET ON THE LIST <ArrowHorizontal width="20px" color="#ee552f" />
             </CtaLink>
-          </GridCol>
+          </CenteredGridCol>
         </GridContainer>
       </CtaWrapper>
     </SectionWrapper>

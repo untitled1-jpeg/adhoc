@@ -17,16 +17,18 @@ export const GridContainer = styled.div`
     column-gap: 15px;
   }
 
-  /* Tablets / Small Laptops */
-  @media (max-width: 1024px) {
+  /* Tablet Range (e.g., iPad Mini to iPad Pro) */
+  @media (min-width: 481px) and (max-width: 1024px) {
+    max-width: 70vw; /* Tighter pinch for premium tablet feel */
     padding: 0 30px;
   }
   
-  /* Mobile */
-  @media (max-width: 768px) {
+  /* Mobile (Standard Phones) */
+  @media (max-width: 480px) {
     grid-template-columns: repeat(4, 1fr);
-    padding: 0 40px;
+    padding: 0 30px;
     column-gap: 10px;
+    max-width: none;
   }
 `;
 

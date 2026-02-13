@@ -11,11 +11,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 15rem 0;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0; /* Rely on GridContainer padding */
+    text-align: left;
+    justify-content: flex-start;
+  }
 `;
 
 const Eyebrow = styled.span`
@@ -24,8 +34,15 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 60px;
+  margin-bottom: 2.5rem; /* Standardized to 40px */
   display: block;
+  text-align: center;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Headline = styled.h2`
@@ -36,9 +53,14 @@ const Headline = styled.h2`
   color: #fff;
   margin-bottom: 3rem; /* Reduced from 6rem */
   max-width: 740px;
+  margin-left: auto;
+  margin-right: auto;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
+    text-align: left;
+    margin-left: 0;
+    max-width: 100%;
   }
 `;
 
@@ -51,6 +73,12 @@ const Description = styled.p`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    margin-left: 0;
+    max-width: 100%;
+  }
 `;
 
 const CtaLink = styled.a`
@@ -68,7 +96,6 @@ const CtaLink = styled.a`
   padding-bottom: 0.4rem;
   transition: all 0.3s ease;
   width: fit-content;
-  margin: 0 auto;
   
   &:hover {
     gap: 1.5rem;
@@ -107,11 +134,11 @@ export default function Leadership() {
   return (
     <SectionWrapper id="why-adhoc" ref={sectionRef}>
       <GridContainer>
-        <GridCol $span={12}>
+        <GridCol $span={12} $mobileSpan={12} $mobileStart={1}>
           <Eyebrow>Why Adhoc?</Eyebrow>
         </GridCol>
 
-        <GridCol $start={3} $span={8} ref={headlineRef}>
+        <GridCol $start={3} $span={8} $mobileSpan={12} $mobileStart={1} ref={headlineRef}>
           <Headline>
             We believe life works best when the right people are at the helm.
             Adhoc is built around a highly selective team of Life Coordinators
@@ -120,19 +147,31 @@ export default function Leadership() {
           </Headline>
         </GridCol>
 
-        <GridCol $start={4} $span={6} ref={contentRef}>
+        <GridCol $start={4} $span={6} $mobileSpan={12} $mobileStart={1} ref={contentRef}>
           <Description>
             Our coordinators think holistically, act proactively, and operate with intention.
             These are not task rabbits, but strategic partners who understand the rhythms
             of the lives they support, and they handle the details accordingly.
           </Description>
-          <div style={{ marginTop: '3.5rem', display: 'flex', justifyContent: 'center' }}>
+          <CtaWrapper>
             <CtaLink href="/leadership">
               OUR LEADERSHIP <ArrowHorizontal width="20px" color="#ee552f" />
             </CtaLink>
-          </div>
+          </CtaWrapper>
         </GridCol>
       </GridContainer>
     </SectionWrapper>
   );
 }
+
+const CtaWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 3.5rem;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    margin-top: 2rem;
+  }
+`;

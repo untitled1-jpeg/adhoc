@@ -11,16 +11,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 15rem 0;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0; /* Rely on GridContainer padding */
+    text-align: left;
+    justify-content: flex-start;
+  }
 `;
 
 const Headline = styled.h2`
   font-family: "ivyora-display", serif;
-  font-size: 3.75rem; /* 60px */
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 400;
   line-height: 1.2;
   margin-bottom: 4rem;
@@ -35,8 +45,11 @@ const Headline = styled.h2`
   }
   
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: clamp(2.2rem, 10vw, 3rem);
     margin-bottom: 2rem;
+    text-align: left;
+    margin-left: 0;
+    max-width: 100%;
   }
 `;
 
@@ -45,10 +58,14 @@ const Form = styled.form`
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 1.75rem; /* Middle ground established */
+  margin-bottom: 1.05rem; /* Reduced by 40% per previous request */
   display: flex;
   flex-direction: column;
   text-align: left;
+
+  @media (max-width: 600px) {
+    margin-bottom: 0.75rem; /* Even tighter on mobile */
+  }
 `;
 
 const Label = styled.label`
@@ -56,15 +73,15 @@ const Label = styled.label`
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff; /* Updated to pure white */
   margin-bottom: 0.4rem;
 `;
 
 const Input = styled.input`
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.75rem 0; /* Middle ground established */
+  border-bottom: 1px solid #fff; /* Updated to pure white */
+  padding: 0.45rem 0; /* Reduced by 40% */
   color: #fff;
   font-family: "sofia-pro", sans-serif;
   font-size: 1.1rem;
@@ -88,7 +105,7 @@ const OptionsGrid = styled.div`
   
   @media (max-width: 600px) {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Left align on mobile */
     gap: 1rem;
   }
 `;
@@ -195,11 +212,11 @@ export default function Contact() {
   return (
     <SectionWrapper id="contact" ref={sectionRef}>
       <GridContainer>
-        <GridCol $start={3} $span={8} ref={addToElementsRef}>
+        <GridCol $start={3} $span={8} $mobileStart={1} $mobileSpan={12} ref={addToElementsRef}>
           <Headline>Get on the list and<br /><em>get your life back.</em></Headline>
         </GridCol>
 
-        <GridCol $start={4} $span={6}>
+        <GridCol $start={4} $span={6} $mobileStart={1} $mobileSpan={12}>
           <Form>
             <FormGroup ref={addToElementsRef}>
               <Label htmlFor="name">Full name</Label>
@@ -233,7 +250,19 @@ export default function Contact() {
               </Option>
             </OptionsGrid>
 
-            <div ref={addToElementsRef}>
+            <div ref={addToElementsRef} style={{ display: 'flex' }} className="submit-wrapper">
+              <style jsx>{`
+                @media (max-width: 768px) {
+                  .submit-wrapper {
+                    justify-content: flex-start !important;
+                  }
+                }
+                @media (min-width: 769px) {
+                  .submit-wrapper {
+                    justify-content: center;
+                  }
+                }
+              `}</style>
               <SubmitButton type="submit">
                 START THE CONVERSATION <ArrowHorizontal width="25px" color="#ee552f" />
               </SubmitButton>

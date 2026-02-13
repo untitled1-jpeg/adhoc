@@ -6,11 +6,15 @@ import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
 
 const FooterWrapper = styled.footer`
-  padding: 10rem 0;
+  padding: 8rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   position: relative;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -23,7 +27,7 @@ const ContentWrapper = styled.div`
 const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.4rem; /* Brought closer together as requested */
 `;
 
 const Copyright = styled.span`
@@ -31,12 +35,24 @@ const Copyright = styled.span`
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.6);
   margin-top: 1rem;
+  display: ${props => props.$mobileOnly ? 'none' : 'block'};
+
+  @media (max-width: 768px) {
+    display: ${props => props.$mobileOnly ? 'block' : 'none'};
+    text-align: left;
+    margin-top: 4rem;
+  }
 `;
 
 const NavColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    margin-top: ${props => props.$isSecond ? '1rem' : '3rem'};
+    gap: 1rem;
+  }
 `;
 
 const NavLink = styled(Link)`
@@ -57,6 +73,12 @@ const Definition = styled.div`
   color: rgba(255, 255, 255, 0.8);
   max-width: 300px;
   
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+    max-width: 100%;
+    text-align: left;
+  }
+  
   strong {
     font-weight: 700;
     display: block;
@@ -65,9 +87,10 @@ const Definition = styled.div`
     text-transform: uppercase;
   }
   
-  em {
-    font-family: "ivyora-display", serif;
+  span.translation {
+    font-family: "sofia-pro", sans-serif;
     font-style: italic;
+    font-weight: 300;
   }
 `;
 
@@ -78,11 +101,11 @@ export default function Footer() {
     <FooterWrapper>
       <GridContainer>
         {/* Logo Column */}
-        <GridCol $span={3}>
+        <GridCol $span={3} $mobileSpan={12} $mobileOrder={1}>
           <LogoWrapper>
             <Link href="/">
               <Image
-                src="/ADHOC_Icon.png"
+                src="/icon_ADHOC.svg"
                 alt="Adhoc Icon"
                 width={60}
                 height={60}
@@ -94,7 +117,7 @@ export default function Footer() {
         </GridCol>
 
         {/* Nav Column 1 */}
-        <GridCol $span={2} $start={5}>
+        <GridCol $span={2} $start={5} $mobileSpan={12} $mobileOrder={2}>
           <NavColumn>
             <NavLink href="/#contact">Get on the List</NavLink>
             <NavLink href="/#memberships">Memberships</NavLink>
@@ -103,8 +126,8 @@ export default function Footer() {
         </GridCol>
 
         {/* Nav Column 2 */}
-        <GridCol $span={2}>
-          <NavColumn>
+        <GridCol $span={2} $mobileSpan={12} $mobileOrder={2}>
+          <NavColumn $isSecond>
             <NavLink href="/#why-adhoc">Why Adhoc?</NavLink>
             <NavLink href="/leadership">Leadership</NavLink>
             <NavLink href="/privacy">Privacy Policy</NavLink>
@@ -112,12 +135,16 @@ export default function Footer() {
         </GridCol>
 
         {/* Definition Column */}
-        <GridCol $span={3} $start={10}>
+        <GridCol $span={3} $start={10} $mobileSpan={12} $mobileOrder={3}>
           <Definition>
-            <strong>ADHOC - /ad .hāk/</strong>
-            -created or done for a particular purpose as necessary.<br />
-            Latin for "<em>for this purpose</em>"
+            <strong>ADHOC - /AD .HÄK/</strong>
+            -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">"for this purpose"</span>
           </Definition>
+        </GridCol>
+
+        {/* Copyright Column - Only visible on Mobile */}
+        <GridCol $span={12} $mobileOrder={4}>
+          <Copyright $mobileOnly>©{currentYear} Adhoc</Copyright>
         </GridCol>
       </GridContainer>
     </FooterWrapper>

@@ -15,8 +15,6 @@ const HeaderWrapper = styled.header`
   justify-content: center;
   align-items: center;
   z-index: 100;
-  background-color: ${props => props.$scrolled ? 'rgba(0, 0, 0, 0.8)' : 'transparent'};
-  backdrop-filter: ${props => props.$scrolled ? 'blur(10px)' : 'none'};
   transition: all 0.4s ease;
 `;
 
@@ -29,13 +27,17 @@ const ContentContainer = styled.div`
   padding: 0 40px;
 `;
 
-const Line = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.2);
-  margin-top: ${props => props.$scrolled ? '0.5rem' : '1.5rem'};
-  opacity: ${props => props.$scrolled ? 0 : 1}; /* Optionally hide line on scroll if desired, or keep it */
-  transition: all 0.4s ease;
+const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: ${props => props.$scrolled ? '0.85rem 2rem' : '1rem 2rem'};
+  border-radius: ${props => props.$scrolled ? '40px' : '0'};
+  background: ${props => props.$scrolled
+    ? 'radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%)'
+    : 'transparent'};
+  backdrop-filter: ${props => props.$scrolled ? 'blur(15px)' : 'none'};
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 const LogoLink = styled(Link)`
@@ -72,9 +74,20 @@ export default function Header() {
   return (
     <HeaderWrapper $scrolled={scrolled}>
       <ContentContainer>
-        <LogoLink href="/" $scrolled={scrolled}>
-          <Logo width="100%" color="#fff" />
-        </LogoLink>
+        <LogoContainer $scrolled={scrolled}>
+          <LogoLink
+            href="/"
+            $scrolled={scrolled}
+            onClick={(e) => {
+              if (window.location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+          >
+            <Logo width="100%" color="#fff" scrolled={scrolled} />
+          </LogoLink>
+        </LogoContainer>
       </ContentContainer>
     </HeaderWrapper>
   );

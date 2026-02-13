@@ -20,17 +20,22 @@ const PreloaderWrapper = styled.div`
 
 const VideoWrapper = styled.div`
   opacity: 0;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
 
   video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 140%; /* Scaled up 40% */
+    height: 140%; /* Scaled up 40% */
+    object-fit: contain; /* Ensure logo is never cropped */
+    
+    @media (max-width: 768px) {
+      width: 140%; /* Maintain scale on mobile */
+      height: 140%;
+    }
   }
 `;
 

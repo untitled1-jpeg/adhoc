@@ -25,8 +25,8 @@ const HeroWrapper = styled.section`
   @media (max-width: 768px) {
     height: auto;
     min-height: 100vh;
-    padding-top: 180px;
-    justify-content: flex-start;
+    padding: 160px 0 100px 0; /* Increased top padding for logo clearance */
+    justify-content: center; /* Centered vertically as requested */
   }
 `;
 
@@ -35,11 +35,16 @@ const Content = styled.div`
   z-index: 1;
   width: 100%;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    padding: 0; /* Handled by GridContainer inside */
+  }
 `;
 
 const Headline = styled.h1`
   font-family: "ivyora-display", serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 400;
   line-height: 1.1;
   margin-bottom: 2rem;
@@ -52,8 +57,9 @@ const Headline = styled.h1`
   }
 
   @media (max-width: 768px) {
+    font-size: clamp(3rem, 10vw, 3.25rem); /* Adjusted for technical validity */
     line-height: 1.2;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem; /* Reduced from 1.5rem */
   }
 `;
 
@@ -64,15 +70,21 @@ const Subheadline = styled.p`
   margin-bottom: 2rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.8);
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* Updated as requested */
+    max-width: 100%; /* Ensure full width */
+    margin-bottom: 1rem; /* Reduced from default */
+  }
 `;
 
 const CtaLink = styled.a`
-  margin-top: 0.5rem; /* Tightened per feedback */
+  margin-top: 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 1rem;
   font-family: "sofia-pro", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #fff;
@@ -82,8 +94,8 @@ const CtaLink = styled.a`
   padding-bottom: 0.4rem;
   transition: all 0.3s ease;
   width: fit-content;
-  margin-bottom: 0.5rem; /* Tightened per feedback */
-
+  margin-bottom: 0.5rem;
+  
   &:hover {
     gap: 1.5rem;
     color: #ee552f;
@@ -93,26 +105,29 @@ const CtaLink = styled.a`
       fill: #ee552f;
     }
   }
+
+  @media (max-width: 768px) {
+    margin-top: 1rem;
+  }
 `;
 
 const BottomNav = styled.div`
-  position: relative; /* Switch to relative to follow flow perfectly */
+  position: relative;
   width: 100%;
   margin-top: 2rem;
   z-index: 10;
   
   @media (max-width: 768px) {
-    margin-top: 4rem;
+    margin-top: 2.5rem; /* Reduced from 4rem */
     padding-bottom: 4rem;
     
-    /* Flex children instead of grid stacking */
     & > ${GridContainer} {
       display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      gap: 2.5rem;
-      padding: 0 10px;
+      flex-direction: row; /* Side-by-side on mobile */
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0 30px;
     }
   }
 `;
@@ -124,6 +139,7 @@ const NavItem = styled.div`
   width: 100%;
   
   @media (max-width: 768px) {
+    align-items: center; /* Center-align link and arrow on mobile when row */
     margin-bottom: 0;
     width: auto;
   }
@@ -149,9 +165,9 @@ const NavLink = styled.a`
   }
 
   @media (max-width: 768px) {
-    padding-bottom: 0.4rem;
-    margin-bottom: 0.6rem;
-    font-size: 0.75rem;
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.6rem; /* Restored/Increased spacing to arrow */
+    font-size: 0.85rem;
     letter-spacing: 0;
   }
 `;
@@ -187,7 +203,7 @@ export default function Hero() {
         const lines = headlineRef.current.querySelectorAll('span, em');
 
         tl.fromTo(lines,
-          { y: 40, opacity: 0, filter: 'blur(10px)' },
+          { y: 40, opacity: 0, filter: 'blur(15px)' },
           { y: 0, opacity: 1, filter: 'blur(0px)', stagger: 0.2, duration: 1.5 }
         )
           .fromTo(subheadlineRef.current,
@@ -195,15 +211,10 @@ export default function Hero() {
             { y: 0, opacity: 1 },
             "-=1"
           )
-          .fromTo(ctaRef.current,
-            { scaleX: 0, opacity: 0 },
-            { scaleX: 1, opacity: 1, duration: 1, transformOrigin: "left" },
-            "-=0.8"
-          )
-          .fromTo(navItemsRef.current,
+          .fromTo([ctaRef.current, ...navItemsRef.current],
             { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.1, duration: 0.8 },
-            "-=0.5"
+            { y: 0, opacity: 1, stagger: 0.1, duration: 1 },
+            "-=0.8"
           );
       });
       return ctx;

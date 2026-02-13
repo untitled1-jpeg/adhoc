@@ -10,10 +10,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionWrapper = styled.section`
   color: #fff;
-  padding: 15rem 0;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+    padding: 100px 0;
+    justify-content: flex-start;
+  }
 `;
 
 const Eyebrow = styled.span`
@@ -22,9 +31,14 @@ const Eyebrow = styled.span`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 60px;
+  margin-bottom: 2.5rem; /* Standardized to 40px */
   display: block;
   text-align: center;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    margin-bottom: 1rem;
+  }
 `;
 
 const Description = styled.h2`
@@ -41,14 +55,15 @@ const Description = styled.h2`
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
-    margin-bottom: 3rem;
+    text-align: left;
+    margin: 0 0 3rem 0;
+    max-width: 100%;
   }
 `;
 
 const ScopeGrid = styled(GridContainer)`
   padding: 0 80px;
   column-gap: 60px;
- bitumen  
   @media (max-width: 1550px) {
     padding: 0 60px;
   }
@@ -56,22 +71,32 @@ const ScopeGrid = styled(GridContainer)`
     padding: 0 40px;
   }
   @media (max-width: 768px) {
-    padding: 0 40px;
+    padding: 0;
   }
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    padding: 0 40px;
+    margin-bottom: 3rem;
+  }
 `;
 
 const ColumnTitle = styled.h3`
   font-family: "ivyora-display", serif;
   font-size: 1.8rem;
   font-weight: 400;
+  margin-bottom: 0.5rem; /* Reduced to account for separator margin */
+`;
+
+const Separator = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 1);
   margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 1);
 `;
 
 const List = styled.ul`
@@ -84,7 +109,7 @@ const ListItem = styled.li`
   font-family: "sofia-pro", sans-serif;
   font-size: 0.85rem;
   line-height: 1.6;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.85rem;
   color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: flex-start;
@@ -153,6 +178,7 @@ export default function Scope() {
         <GridCol $start={1} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Personal</ColumnTitle>
+            <Separator />
             <List>
               <ListItem>Schedule management and personal logistics</ListItem>
               <ListItem>Travel planning and execution (domestic & international)</ListItem>
@@ -165,6 +191,7 @@ export default function Scope() {
         <GridCol $start={4} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Family</ColumnTitle>
+            <Separator />
             <List>
               <ListItem>Children's schedules, school coordination, and activities</ListItem>
               <ListItem>Family holidays and milestone events</ListItem>
@@ -179,6 +206,7 @@ export default function Scope() {
         <GridCol $start={7} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Home</ColumnTitle>
+            <Separator />
             <List>
               <ListItem>Property and residence coordination</ListItem>
               <ListItem>Vendor sourcing, management, and accountability</ListItem>
@@ -192,6 +220,7 @@ export default function Scope() {
         <GridCol $start={10} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Professional</ColumnTitle>
+            <Separator />
             <List>
               <ListItem>High-level calendar oversight</ListItem>
               <ListItem>Travel, event, and meeting coordination</ListItem>
