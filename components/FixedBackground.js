@@ -20,7 +20,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 `;
 
@@ -31,7 +31,7 @@ const Video = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.6; /* Balanced for grain visibility */
+  opacity: 0.8; /* Increased base opacity since overlay handles legibility */
   z-index: 0;
 `;
 
@@ -49,13 +49,12 @@ export default function FixedBackground() {
         muted
         loop
         playsInline
-        poster="/img_background-fallback.jpg"
+        poster="/img_background-fallback.webp"
       >
-        <source src="/background_adhoc.webm" type="video/webm" />
-        <source src="/background_adhoc.mp4" type="video/mp4" />
+        <source src="/background_Adhoc.mp4" type="video/mp4" />
       </Video>
       <StyledImage
-        src="/img_background-fallback.jpg"
+        src="/img_background-fallback.webp"
         alt="Background Fallback"
         fill
         priority
