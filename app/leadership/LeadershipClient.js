@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
 
 const PageWrapper = styled.div`
-  padding-top: 220px; /* Aligned with homepage header spacing */
+  padding-top: 240px; /* Increased from 220px for better balance */
   padding-bottom: 12rem;
   min-height: 100vh;
   position: relative;
@@ -71,7 +71,7 @@ const SubHeadline = styled.h2`
 
 const Separator = styled.div`
   width: 100px;
-  height: 1.5px;
+  height: 1px;
   background-color: #ee552f;
   margin: 0;
 `;
@@ -85,42 +85,42 @@ const BioText = styled.p`
 `;
 
 export default function LeadershipClient() {
-    return (
-        <PageWrapper>
-            <GridContainer>
-                {/* Left Column: Image & Contact Info */}
-                <GridCol $start={3} $span={3}>
-                    <ImageWrapper>
-                        <Image
-                            src="/img_holly.jpg"
-                            alt="Holly Moon - President & CEO"
-                            fill
-                            priority
-                        />
-                    </ImageWrapper>
-                    <Info>
-                        <h3>President & CEO</h3>
-                        <p>hello@adhoc-co.com</p>
-                    </Info>
-                </GridCol>
+  return (
+    <PageWrapper>
+      <GridContainer>
+        {/* Left Column: Image & Contact Info */}
+        <GridCol $start={3} $span={3}>
+          <ImageWrapper>
+            <Image
+              src="/img_holly.jpg"
+              alt="Holly Moon - President & CEO"
+              fill
+              priority
+            />
+          </ImageWrapper>
+          <Info>
+            <h3>President & CEO</h3>
+            <p>hello@adhoc-co.com</p>
+          </Info>
+        </GridCol>
 
-                {/* Right Column: Bio Content */}
-                <GridCol $start={7} $span={5}>
-                    <Content>
-                        <Title>Our Leadership</Title>
-                        <SubHeadline>
-                            Holly Moon is the President & CEO of Adhoc and a trusted operator with more than a decade of experience supporting executives, entrepreneurs, and families with complex lives.
-                        </SubHeadline>
-                        <Separator />
-                        <BioText>
-                            Known for her discretion, judgment, and ability to identify the right people for the right roles, she brings order and calm to demanding environments.
-                        </BioText>
-                        <BioText>
-                            Before Adhoc, Holly founded The Assistant Academy, where she built and trained elite executive and personal assistants. She lives in Dallas with her husband and children, Lincoln and Monroe, though they spend time on the East Coast whenever possible, drawn by the ocean, salty air, and fresh seafood.
-                        </BioText>
-                    </Content>
-                </GridCol>
-            </GridContainer>
-        </PageWrapper>
-    );
+        {/* Right Column: Bio Content */}
+        <GridCol $start={7} $span={5}>
+          <Content>
+            <Title>Our Leadership</Title>
+            <SubHeadline>
+              Holly Moon is the President & CEO of Adhoc and a trusted operator with more than a decade of experience supporting executives, entrepreneurs, and families with complex lives.
+            </SubHeadline>
+            <Separator />
+            <BioText>
+              Known for her discretion, judgment, and ability to identify the right people for the right roles, she brings order and calm to demanding environments.
+            </BioText>
+            <BioText>
+              Before Adhoc, Holly founded The Assistant Academy, where she built and trained elite executive and personal assistants. She lives in Dallas with her husband and children, Lincoln and Monroe, though they spend time on the East Coast whenever possible, drawn by the ocean, salty air, and fresh seafood.
+            </BioText>
+          </Content>
+        </GridCol>
+      </GridContainer>
+    </PageWrapper>
+  );
 }
