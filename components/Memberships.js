@@ -70,7 +70,7 @@ const TierTitle = styled.h3`
   font-size: 3rem;
   font-weight: 400;
   font-style: italic;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   line-height: 1;
 
   @media (max-width: 900px) {
@@ -81,7 +81,7 @@ const TierTitle = styled.h3`
 const TierHours = styled.span`
   font-family: "sofia-pro", sans-serif;
   font-size: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
   display: block;
   color: #fff;
 `;
@@ -90,7 +90,7 @@ const Separator = styled.div`
   width: 140px;
   height: 1px;
   background-color: #ee552f;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.2rem 0;
 `;
 
 const TierDescription = styled.p`
@@ -99,7 +99,7 @@ const TierDescription = styled.p`
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   max-width: 280px;
-  margin: 0 0 3rem 0;
+  margin: 0 0 2rem 0;
   
   @media (max-width: 900px) {
     max-width: 100%;
@@ -237,7 +237,7 @@ export default function Memberships() {
 
       <CtaWrapper>
         <GridContainer>
-          <GridCol $span={12} style={{ display: 'flex', justifyContent: 'center' }}>
+          <GridCol $start={5} $span={8} style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <CtaLink href="#contact">
               GET ON THE LIST <ArrowHorizontal width="20px" color="#ee552f" />
             </CtaLink>

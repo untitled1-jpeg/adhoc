@@ -9,7 +9,7 @@ export const GridContainer = styled.div`
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 120px;
+  padding: 0 60px;
   
   /* Laptops (around 1500px) */
   @media (max-width: 1550px) {
@@ -25,7 +25,7 @@ export const GridContainer = styled.div`
   /* Mobile */
   @media (max-width: 768px) {
     grid-template-columns: repeat(4, 1fr);
-    padding: 0 20px;
+    padding: 0 60px;
     column-gap: 10px;
   }
 `;
