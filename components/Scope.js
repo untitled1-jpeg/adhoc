@@ -143,7 +143,7 @@ export default function Scope() {
       </GridContainer>
 
       <ScopeGrid>
-        <GridCol $start={2} $span={2} ref={addToColumnRefs}>
+        <GridCol $start={1} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Personal</ColumnTitle>
             <List>
@@ -155,7 +155,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={4} $span={2} ref={addToColumnRefs}>
+        <GridCol $start={4} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Family</ColumnTitle>
             <List>
@@ -169,7 +169,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={8} $span={2} ref={addToColumnRefs}>
+        <GridCol $start={7} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Home</ColumnTitle>
             <List>
@@ -182,7 +182,7 @@ export default function Scope() {
           </Column>
         </GridCol>
 
-        <GridCol $start={10} $span={2} ref={addToColumnRefs}>
+        <GridCol $start={10} $span={3} ref={addToColumnRefs}>
           <Column>
             <ColumnTitle>Professional</ColumnTitle>
             <List>

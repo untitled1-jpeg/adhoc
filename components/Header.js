@@ -26,7 +26,7 @@ const ContentContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1280px;
-  padding: 0 60px;
+  padding: 0 40px;
 `;
 
 const Line = styled.div`
