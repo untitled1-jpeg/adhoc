@@ -46,6 +46,15 @@ export async function generateMetadata() {
       description: settings?.metaDescription || "Order, foresight, and intention for complex lives.",
       images: ['/ADHOC_Icon.png'],
     },
+    icons: {
+      icon: [
+        { url: '/icon.png?v=2' },
+        { url: '/icon.png?v=2', sizes: '32x32', type: 'image/png' },
+      ],
+      apple: [
+        { url: '/apple-icon.png?v=2' },
+      ],
+    },
     manifest: '/manifest.json',
   };
 }
