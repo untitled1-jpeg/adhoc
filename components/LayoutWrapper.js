@@ -56,17 +56,17 @@ export default function LayoutWrapper({ children, settings = {} }) {
     const isStudio = pathname?.startsWith('/studio');
 
     useEffect(() => {
-        setIsClient(true);
+        setTimeout(() => setIsClient(true), 0);
 
         if (isStudio) {
-            setIsLoading(false);
+            setTimeout(() => setIsLoading(false), 0);
             return;
         }
 
         // Check if preloader has already run in this session
         const hasRun = sessionStorage.getItem('adhoc_preloader_run');
         if (hasRun) {
-            revealContent(true);
+            setTimeout(() => revealContent(true), 0);
         }
     }, [revealContent, isStudio]);
 

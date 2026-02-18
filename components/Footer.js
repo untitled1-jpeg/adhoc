@@ -157,7 +157,7 @@ export default function Footer({ settings }) {
             )}
             <Definition>
               <strong>ADHOC - /AD .HÄK/</strong>
-              -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">"for this purpose"</span>
+              -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">&quot;for this purpose&quot;</span>
             </Definition>
           </ContentWrapper>
         </GridCol>

@@ -50,7 +50,7 @@ export default function FixedBackground() {
   useEffect(() => {
     // If preloader has already run, we skip the initial black overlay to prevent flickering
     if (sessionStorage.getItem('adhoc_preloader_run')) {
-      setSkipFlash(true);
+      setTimeout(() => setSkipFlash(true), 0);
     }
   }, []);
 
