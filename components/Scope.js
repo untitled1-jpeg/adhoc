@@ -128,10 +128,56 @@ const ListItem = styled.li`
   }
 `;
 
-export default function Scope() {
+const defaultCategories = [
+  {
+    title: 'Personal',
+    listItems: [
+      'Schedule management and personal logistics',
+      'Travel planning and execution (domestic & international)',
+      'Personal purchases, gifting, and special arrangements',
+      'Leisure planning, experiences, and personal projects'
+    ]
+  },
+  {
+    title: 'Family',
+    listItems: [
+      "Children's schedules, school coordination, and activities",
+      'Family holidays and milestone events',
+      'Household staffing coordination and oversight',
+      'Family logistics, transitions, and special circumstances',
+      'Support during periods of change, growth, or crisis',
+      'Long-term family planning'
+    ]
+  },
+  {
+    title: 'Home',
+    listItems: [
+      'Property and residence coordination',
+      'Vendor sourcing, management, and accountability',
+      'Maintenance schedules and planning',
+      'Home projects',
+      'Seasonal preparation'
+    ]
+  },
+  {
+    title: 'Professional',
+    listItems: [
+      'High-level calendar oversight',
+      'Travel, event, and meeting coordination',
+      'Liaison with the Advisory Team and office staff'
+    ]
+  }
+];
+
+export default function Scope({ data = {} }) {
   const sectionRef = useRef(null);
   const headlineRef = useRef(null);
   const columnsRef = useRef([]);
+
+  const {
+    scopeIntro = 'Across personal, family, home, and professional life, we bring order, foresight, and intention. We anticipate and intelligently coordinate the many moving parts, so our members can stay focused on what matters most.',
+    scopeCategories = defaultCategories
+  } = data || {};
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -180,6 +226,7 @@ export default function Scope() {
       columnsRef.current.push(el);
     }
   };
+
   return (
     <SectionWrapper id="scope" ref={sectionRef}>
       <GridContainer>
@@ -188,67 +235,32 @@ export default function Scope() {
         </GridCol>
         <GridCol $start={2} $span={10} ref={headlineRef}>
           <Description>
-            Across personal, family, home, and professional life, we bring order, foresight, and intention.
-            We anticipate and intelligently coordinate the many moving parts, so our members can stay focused on what matters most.
+            {scopeIntro}
           </Description>
         </GridCol>
       </GridContainer>
 
       <ScopeGrid>
-        <GridCol $start={1} $span={3} $tabletStart={1} $tabletSpan={6} ref={addToColumnRefs}>
-          <Column>
-            <ColumnTitle>Personal</ColumnTitle>
-            <Separator />
-            <List>
-              <ListItem>Schedule management and personal logistics</ListItem>
-              <ListItem>Travel planning and execution (domestic & international)</ListItem>
-              <ListItem>Personal purchases, gifting, and special arrangements</ListItem>
-              <ListItem>Leisure planning, experiences, and personal projects</ListItem>
-            </List>
-          </Column>
-        </GridCol>
-
-        <GridCol $start={4} $span={3} $tabletStart={7} $tabletSpan={6} ref={addToColumnRefs}>
-          <Column>
-            <ColumnTitle>Family</ColumnTitle>
-            <Separator />
-            <List>
-              <ListItem>Children's schedules, school coordination, and activities</ListItem>
-              <ListItem>Family holidays and milestone events</ListItem>
-              <ListItem>Household staffing coordination and oversight</ListItem>
-              <ListItem>Family logistics, transitions, and special circumstances</ListItem>
-              <ListItem>Support during periods of change, growth, or crisis</ListItem>
-              <ListItem>Long-term family planning</ListItem>
-            </List>
-          </Column>
-        </GridCol>
-
-        <GridCol $start={7} $span={3} $tabletStart={1} $tabletSpan={6} ref={addToColumnRefs}>
-          <Column>
-            <ColumnTitle>Home</ColumnTitle>
-            <Separator />
-            <List>
-              <ListItem>Property and residence coordination</ListItem>
-              <ListItem>Vendor sourcing, management, and accountability</ListItem>
-              <ListItem>Maintenance schedules and planning</ListItem>
-              <ListItem>Home projects</ListItem>
-              <ListItem>Seasonal preparation</ListItem>
-            </List>
-          </Column>
-        </GridCol>
-
-
-        <GridCol $start={10} $span={3} $tabletStart={7} $tabletSpan={6} ref={addToColumnRefs}>
-          <Column>
-            <ColumnTitle>Professional</ColumnTitle>
-            <Separator />
-            <List>
-              <ListItem>High-level calendar oversight</ListItem>
-              <ListItem>Travel, event, and meeting coordination</ListItem>
-              <ListItem>Liaison with the Advisory Team and office staff</ListItem>
-            </List>
-          </Column>
-        </GridCol>
+        {scopeCategories.map((category, idx) => (
+          <GridCol
+            key={idx}
+            $start={1 + (idx * 3)}
+            $span={3}
+            $tabletStart={idx % 2 === 0 ? 1 : 7}
+            $tabletSpan={6}
+            ref={addToColumnRefs}
+          >
+            <Column>
+              <ColumnTitle>{category.title}</ColumnTitle>
+              <Separator />
+              <List>
+                {category.listItems?.map((item, i) => (
+                  <ListItem key={i}>{item}</ListItem>
+                ))}
+              </List>
+            </Column>
+          </GridCol>
+        ))}
       </ScopeGrid >
     </SectionWrapper >
   );

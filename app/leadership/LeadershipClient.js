@@ -119,10 +119,21 @@ const BioText = styled.p`
   }
 `;
 
-export default function LeadershipClient() {
+import { PortableText } from '@portabletext/react';
+import { urlFor } from '@/sanity/lib/image';
+
+export default function LeadershipClient({ pageData = {}, teamData = [] }) {
   const imageRef = useRef(null);
   const infoRef = useRef(null);
   const contentRef = useRef(null);
+
+  const {
+    pageTitle = 'Our Leadership',
+    heroImage,
+    headline = 'Holly Moon is the President & CEO of Adhoc and a trusted operator...',
+    bioHeadline = 'President & CEO',
+    bio = []
+  } = pageData || {};
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -160,35 +171,52 @@ export default function LeadershipClient() {
     <PageWrapper>
       <GridContainer>
         {/* Left Column: Image & Contact Info */}
-        <GridCol $start={2} $span={3}>
+        <GridCol $start={2} $span={3} $mobileSpan={12} $mobileStart={1}>
           <ImageWrapper ref={imageRef}>
-            <Image
-              src="/img_holly.jpg"
-              alt="Holly Moon - President & CEO"
-              fill
-              priority
-            />
+            {heroImage ? (
+              <Image
+                src={urlFor(heroImage).width(600).height(600).url()}
+                alt={pageTitle}
+                fill
+                priority
+              />
+            ) : (
+              <Image
+                src="/img_holly.jpg"
+                alt="Holly Moon - President & CEO"
+                fill
+                priority
+              />
+            )}
           </ImageWrapper>
           <Info ref={infoRef}>
-            <h3>President & CEO</h3>
+            <h3>{bioHeadline}</h3>
             <p>hello@adhoc-co.com</p>
           </Info>
         </GridCol>
 
         {/* Right Column: Bio Content */}
-        <GridCol $start={6} $span={6}>
+        <GridCol $start={6} $span={6} $mobileSpan={12} $mobileStart={1}>
           <Content ref={contentRef}>
-            <PageHeadline>Our Leadership</PageHeadline>
+            <PageHeadline>{pageTitle}</PageHeadline>
             <SubHeadline>
-              Holly Moon is the President & CEO of Adhoc and a trusted operator with more than a decade of experience supporting executives, entrepreneurs, and families with complex lives.
+              {headline}
             </SubHeadline>
             <Separator />
-            <BioText>
-              Known for her discretion, judgment, and ability to identify the right people for the right roles, she brings order and calm to demanding environments.
-            </BioText>
-            <BioText>
-              Before Adhoc, Holly founded The Assistant Academy, where she built and trained elite executive and personal assistants. She lives in Dallas with her husband and children, Lincoln and Monroe, though they spend time on the East Coast whenever possible, drawn by the ocean, salty air, and fresh seafood.
-            </BioText>
+            {bio.length > 0 ? (
+              <BioText as="div">
+                <PortableText value={bio} />
+              </BioText>
+            ) : (
+              <>
+                <BioText>
+                  Known for her discretion, judgment, and ability to identify the right people for the right roles, she brings order and calm to demanding environments.
+                </BioText>
+                <BioText>
+                  Before Adhoc, Holly founded The Assistant Academy, where she built and trained elite executive and personal assistants. She lives in Dallas with her husband and children, Lincoln and Monroe, though they spend time on the East Coast whenever possible, drawn by the ocean, salty air, and fresh seafood.
+                </BioText>
+              </>
+            )}
           </Content>
         </GridCol>
       </GridContainer>

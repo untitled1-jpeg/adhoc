@@ -201,11 +201,34 @@ const CtaLink = styled.a`
   }
 `;
 
-export default function Memberships() {
+const defaultTiers = [
+  {
+    title: 'Essential',
+    hours: '50 hours per month',
+    description: 'Consistent support from a dedicated life coordinator.'
+  },
+  {
+    title: 'Elevated',
+    hours: '80 hours per month',
+    description: 'Expanded support from a dedicated life coordinator.'
+  },
+  {
+    title: 'Exclusive',
+    hours: 'Full-time coordination',
+    description: 'Upscaled support from a dedicated life coordinator, structured entirely around your family.'
+  }
+];
+
+export default function Memberships({ data = {} }) {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
   const cardsRef = useRef([]);
+
+  const {
+    membershipsIntro = 'A private membership that pairs individuals and families with a dedicated coordinator to manage all of the moving parts of their lives.',
+    membershipTiers = defaultTiers
+  } = data || {};
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -260,6 +283,7 @@ export default function Memberships() {
       cardsRef.current.push(el);
     }
   };
+
   return (
     <SectionWrapper id="memberships" ref={sectionRef}>
       <GridContainer>
@@ -268,50 +292,25 @@ export default function Memberships() {
         </GridCol>
         <GridCol $start={3} $span={8}>
           <Description ref={descriptionRef}>
-            A private membership that pairs individuals and
-            families with a dedicated coordinator to manage
-            all of the moving parts of their&nbsp;lives.
+            {membershipsIntro}
           </Description>
         </GridCol>
       </GridContainer>
 
       <TiersGrid>
         <NoPaddingGrid>
-          {/* Essential */}
-          <GridCol $start={3} $span={2}>
-            <TierCard ref={addToCardRefs}>
-              <TierTitle>Essential</TierTitle>
-              <TierHours>50 hours per month</TierHours>
-              <Separator />
-              <TierDescription>
-                Consistent support from a dedicated life coordinator.
-              </TierDescription>
-            </TierCard>
-          </GridCol>
-
-          {/* Elevated */}
-          <GridCol $start={6} $span={2}>
-            <TierCard ref={addToCardRefs}>
-              <TierTitle>Elevated</TierTitle>
-              <TierHours>80 hours per month</TierHours>
-              <Separator />
-              <TierDescription>
-                Expanded support from a dedicated life coordinator.
-              </TierDescription>
-            </TierCard>
-          </GridCol>
-
-          {/* Exclusive */}
-          <GridCol $start={9} $span={3}>
-            <TierCard ref={addToCardRefs}>
-              <TierTitle>Exclusive</TierTitle>
-              <TierHours>Full-time coordination</TierHours>
-              <Separator />
-              <TierDescription>
-                Upscaled support from a dedicated life coordinator, structured entirely around your family.
-              </TierDescription>
-            </TierCard>
-          </GridCol>
+          {membershipTiers.map((tier, idx) => (
+            <GridCol key={idx} $start={3 + (idx * 3)} $span={idx === 2 ? 3 : 2}>
+              <TierCard ref={addToCardRefs}>
+                <TierTitle>{tier.title}</TierTitle>
+                <TierHours>{tier.hours}</TierHours>
+                <Separator />
+                <TierDescription>
+                  {tier.description}
+                </TierDescription>
+              </TierCard>
+            </GridCol>
+          ))}
         </NoPaddingGrid>
       </TiersGrid>
 

@@ -115,10 +115,16 @@ const CtaLink = styled(Link)`
   }
 `;
 
-export default function Leadership() {
+export default function Leadership({ data = {} }) {
   const sectionRef = useRef(null);
   const headlineRef = useRef(null);
   const contentRef = useRef(null);
+
+  const {
+    leadershipHeadline = 'We believe life works best when the right people are at the helm. Adhoc is built around a highly selective team of Life Coordinators chosen for their judgment, discretion, and emotional intelligence as much as their expertise.',
+    leadershipDescription = 'Our coordinators think holistically, act proactively, and operate with intention. These are not task rabbits, but strategic partners who understand the rhythms of the lives they support, and they handle the details accordingly.',
+    leadershipCtaText = 'OUR LEADERSHIP'
+  } = data || {};
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -143,6 +149,7 @@ export default function Leadership() {
 
     return () => ctx.revert();
   }, []);
+
   return (
     <SectionWrapper id="why-adhoc" ref={sectionRef}>
       <GridContainer>
@@ -152,22 +159,17 @@ export default function Leadership() {
 
         <GridCol $start={3} $span={8} $tabletStart={2} $tabletSpan={10} $mobileSpan={12} $mobileStart={1} ref={headlineRef}>
           <Headline>
-            We believe life works best when the right people are at the helm.
-            Adhoc is built around a highly selective team of Life Coordinators
-            chosen for their judgment, discretion, and emotional intelligence
-            as much as their expertise.
+            {leadershipHeadline}
           </Headline>
         </GridCol>
 
         <GridCol $start={4} $span={6} $tabletStart={2} $tabletSpan={10} $mobileSpan={12} $mobileStart={1} ref={contentRef}>
           <Description>
-            Our coordinators think holistically, act proactively, and operate with intention.
-            These are not task rabbits, but strategic partners who understand the rhythms
-            of the lives they support, and they handle the details accordingly.
+            {leadershipDescription}
           </Description>
           <CtaWrapper>
             <CtaLink href="/leadership">
-              OUR LEADERSHIP <ArrowHorizontal width="20px" color="#ee552f" />
+              {leadershipCtaText} <ArrowHorizontal width="20px" color="#ee552f" />
             </CtaLink>
           </CtaWrapper>
         </GridCol>

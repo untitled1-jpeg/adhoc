@@ -16,7 +16,8 @@ const ScrollContainer = styled.div`
   width: 100%;
 `;
 
-export default function HomeClient() {
+export default function HomeClient({ initialData }) {
+    const data = initialData || {};
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -30,7 +31,6 @@ export default function HomeClient() {
                 trigger: containerRef.current,
                 start: "top top",
                 end: "bottom bottom",
-                end: "bottom bottom"
             });
         });
 
@@ -39,11 +39,11 @@ export default function HomeClient() {
 
     return (
         <ScrollContainer ref={containerRef}>
-            <Hero />
-            <Memberships />
-            <Scope />
-            <Leadership />
-            <Contact />
+            <Hero data={initialData} />
+            <Memberships data={initialData} />
+            <Scope data={initialData} />
+            <Leadership data={initialData} />
+            <Contact data={initialData} />
         </ScrollContainer>
     );
 }

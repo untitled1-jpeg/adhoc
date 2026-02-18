@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useActionState } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { GridContainer, GridCol } from '@/components/Grid';
 import ArrowHorizontal from '@/components/icons/ArrowHorizontal';
+import { submitContactForm } from '@/app/actions';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,7 +75,7 @@ const Label = styled.label`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #fff;
-  margin-bottom: 0.2rem; /* Reduced label margin */
+  margin-bottom: 0.2rem;
 `;
 
 const Input = styled.input`
@@ -178,9 +179,24 @@ const Disclaimer = styled.p`
   color: rgba(255, 255, 255, 0.5);
 `;
 
-export default function Contact() {
+export default function Contact({ data = {} }) {
   const sectionRef = useRef(null);
   const elementsRef = useRef([]);
+
+  const {
+    contactHeadline = 'Get on the list and',
+    contactHeadlineItalic = 'get your life back.',
+    nameHint,
+    emailHint,
+    phoneHint,
+    zipHint
+  } = data || {};
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks -- verified React 19 usage
+  const [state, formAction, isPending] = useActionState(submitContactForm, {
+    message: '',
+    errors: {}
+  });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -210,72 +226,98 @@ export default function Contact() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, []); // Only run once on mount
+
+  // Reset form on success if needed, or just show success message
+  useEffect(() => {
+    if (state?.success) {
+      // Optional: Reset form logic here if not replacing content
+    }
+  }, [state?.success]);
+
 
   const addToElementsRef = (el) => {
     if (el && !elementsRef.current.includes(el)) {
       elementsRef.current.push(el);
     }
   };
+
   return (
     <SectionWrapper id="contact" ref={sectionRef}>
       <GridContainer>
         <GridCol $start={3} $span={8} $tabletStart={2} $tabletSpan={10} $mobileStart={1} $mobileSpan={12} ref={addToElementsRef}>
-          <Headline>Get on the list and<br /><em>get your life back.</em></Headline>
+          <Headline>
+            <span>{contactHeadline}</span><br />
+            <em>{contactHeadlineItalic}</em>
+          </Headline>
         </GridCol>
 
         <GridCol $start={4} $span={6} $tabletStart={2} $tabletSpan={10} $mobileStart={1} $mobileSpan={12}>
-          <Form>
-            <FormGroup ref={addToElementsRef}>
-              <Label htmlFor="name">Full name</Label>
-              <Input type="text" id="name" name="name" required placeholder="John Doe" />
-            </FormGroup>
-            <FormGroup ref={addToElementsRef}>
-              <Label htmlFor="email">Email</Label>
-              <Input type="email" id="email" name="email" required placeholder="john@example.com" />
-            </FormGroup>
-            <FormGroup ref={addToElementsRef}>
-              <Label htmlFor="phone">Phone</Label>
-              <Input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
-            </FormGroup>
-            <FormGroup ref={addToElementsRef}>
-              <Label htmlFor="zip">Zip Code</Label>
-              <Input type="text" id="zip" name="zip" required placeholder="90210" />
-            </FormGroup>
-
-            <OptionsGrid ref={addToElementsRef}>
-              <Option>
-                <input type="radio" name="membership" value="Essential" />
-                Essential
-              </Option>
-              <Option>
-                <input type="radio" name="membership" value="Elevated" />
-                Elevated
-              </Option>
-              <Option>
-                <input type="radio" name="membership" value="Exclusive" />
-                Exclusive
-              </Option>
-            </OptionsGrid>
-
-            <div ref={addToElementsRef} style={{ display: 'flex' }} className="submit-wrapper">
-              <style jsx>{`
-                @media (max-width: 767px) {
-                  .submit-wrapper {
-                    justify-content: flex-start !important;
-                  }
-                }
-                @media (min-width: 768px) {
-                  .submit-wrapper {
-                    justify-content: center;
-                  }
-                }
-              `}</style>
-              <SubmitButton type="submit">
-                START THE CONVERSATION <ArrowHorizontal width="25px" color="#ee552f" />
-              </SubmitButton>
+          {state?.success ? (
+            <div style={{ padding: '2rem 0', textAlign: 'center' }}>
+              <h3 style={{ fontFamily: '"ivyora-display", serif', fontSize: '2rem', marginBottom: '1rem' }}>Thank you!</h3>
+              <p style={{ fontFamily: '"sofia-pro", sans-serif' }}>We have received your message and will be in touch shortly.</p>
             </div>
-          </Form>
+          ) : (
+            <Form action={formAction}>
+              <FormGroup ref={addToElementsRef}>
+                <Label htmlFor="name">Full name</Label>
+                <Input type="text" id="name" name="name" required placeholder={nameHint || "John Doe"} />
+                {state?.errors?.name && <p style={{ color: '#ff6b6b', fontSize: '0.75rem', marginTop: '0.25rem' }}>{state.errors.name[0]}</p>}
+              </FormGroup>
+              <FormGroup ref={addToElementsRef}>
+                <Label htmlFor="email">Email</Label>
+                <Input type="email" id="email" name="email" required placeholder={emailHint || "john@example.com"} />
+                {state?.errors?.email && <p style={{ color: '#ff6b6b', fontSize: '0.75rem', marginTop: '0.25rem' }}>{state.errors.email[0]}</p>}
+              </FormGroup>
+              <FormGroup ref={addToElementsRef}>
+                <Label htmlFor="phone">Phone</Label>
+                <Input type="tel" id="phone" name="phone" placeholder={phoneHint || "+1 (555) 000-0000"} />
+              </FormGroup>
+              <FormGroup ref={addToElementsRef}>
+                <Label htmlFor="zip">Zip Code</Label>
+                <Input type="text" id="zip" name="zip" required placeholder={zipHint || "90210"} />
+                {state?.errors?.zip && <p style={{ color: '#ff6b6b', fontSize: '0.75rem', marginTop: '0.25rem' }}>{state.errors.zip[0]}</p>}
+              </FormGroup>
+
+              <OptionsGrid ref={addToElementsRef}>
+                <Option>
+                  <input type="radio" name="membership" value="Essential" />
+                  Essential
+                </Option>
+                <Option>
+                  <input type="radio" name="membership" value="Elevated" />
+                  Elevated
+                </Option>
+                <Option>
+                  <input type="radio" name="membership" value="Exclusive" />
+                  Exclusive
+                </Option>
+              </OptionsGrid>
+
+              {state?.message && !state.success && (
+                <p style={{ color: '#ff6b6b', marginBottom: '1rem', fontFamily: '"sofia-pro", sans-serif' }}>{state.message}</p>
+              )}
+
+              <div ref={addToElementsRef} style={{ display: 'flex' }} className="submit-wrapper">
+                <style jsx>{`
+                  @media (max-width: 767px) {
+                    .submit-wrapper {
+                      justify-content: flex-start !important;
+                    }
+                  }
+                  @media (min-width: 768px) {
+                    .submit-wrapper {
+                      justify-content: center;
+                    }
+                  }
+                `}</style>
+                <SubmitButton type="submit" disabled={isPending} style={{ opacity: isPending ? 0.7 : 1 }}>
+                  {isPending ? 'SENDING...' : 'START THE CONVERSATION'} <ArrowHorizontal width="25px" color="#ee552f" />
+                </SubmitButton>
+              </div>
+            </Form>
+          )}
           <Disclaimer ref={addToElementsRef}>We respect your privacy. No spam, ever.</Disclaimer>
         </GridCol>
       </GridContainer>

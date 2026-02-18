@@ -1,0 +1,180 @@
+export default {
+    name: 'homepage',
+    title: 'Homepage',
+    type: 'document',
+    fields: [
+        {
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+            initialValue: 'Homepage',
+            hidden: true,
+        },
+        // Hero Section
+        {
+            name: 'heroHeadline',
+            title: 'Hero Headline',
+            type: 'string',
+            group: 'hero',
+            fieldset: 'hero',
+        },
+        {
+            name: 'heroHeadlineItalic',
+            title: 'Hero Headline (Italic)',
+            type: 'string',
+            group: 'hero',
+            fieldset: 'hero',
+        },
+        {
+            name: 'heroSubheadline',
+            title: 'Hero Subheadline',
+            type: 'text',
+            group: 'hero',
+            fieldset: 'hero',
+        },
+        {
+            name: 'heroCtaText',
+            title: 'Hero CTA Text',
+            type: 'string',
+            group: 'hero',
+            fieldset: 'hero',
+        },
+        // Memberships Section
+        {
+            name: 'membershipsIntro',
+            title: 'Memberships Intro',
+            type: 'text',
+            group: 'memberships',
+            fieldset: 'memberships',
+        },
+        {
+            name: 'membershipTiers',
+            title: 'Membership Tiers',
+            type: 'array',
+            group: 'memberships',
+            fieldset: 'memberships',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'title', type: 'string', title: 'Tier Title' },
+                        { name: 'hours', type: 'string', title: 'Hours per month' },
+                        { name: 'description', type: 'text', title: 'Description' },
+                    ],
+                },
+            ],
+        },
+        // Scope Section
+        {
+            name: 'scopeIntro',
+            title: 'Scope Intro',
+            type: 'text',
+            group: 'scope',
+            fieldset: 'scope',
+        },
+        {
+            name: 'scopeCategories',
+            title: 'Scope Categories',
+            type: 'array',
+            group: 'scope',
+            fieldset: 'scope',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'title', type: 'string', title: 'Category Title' },
+                        {
+                            name: 'listItems',
+                            type: 'array',
+                            title: 'Items',
+                            of: [{ type: 'string' }],
+                        },
+                    ],
+                },
+            ],
+        },
+        // Leadership Section
+        {
+            name: 'leadershipHeadline',
+            title: 'Leadership Headline',
+            type: 'text',
+            group: 'leadership',
+            fieldset: 'leadership',
+        },
+        {
+            name: 'leadershipDescription',
+            title: 'Leadership Description',
+            type: 'text',
+            group: 'leadership',
+            fieldset: 'leadership',
+        },
+        {
+            name: 'leadershipCtaText',
+            title: 'Leadership CTA Text',
+            type: 'string',
+            group: 'leadership',
+            fieldset: 'leadership',
+        },
+        // Contact Section
+        {
+            name: 'contactHeadline',
+            title: 'Contact Headline',
+            type: 'string',
+            group: 'contact',
+            fieldset: 'contact',
+        },
+        {
+            name: 'contactHeadlineItalic',
+            title: 'Contact Headline (Italic)',
+            type: 'string',
+            group: 'contact',
+            fieldset: 'contact',
+        },
+        {
+            name: 'nameHint',
+            title: 'Name Field Hint',
+            type: 'string',
+            group: 'contact',
+            fieldset: 'contact',
+            description: 'Hint text for the Name field (e.g. "Full name")',
+        },
+        {
+            name: 'emailHint',
+            title: 'Email Field Hint',
+            type: 'string',
+            group: 'contact',
+            fieldset: 'contact',
+            description: 'Hint text for the Email field (e.g. "john@example.com")',
+        },
+        {
+            name: 'phoneHint',
+            title: 'Phone Field Hint',
+            type: 'string',
+            group: 'contact',
+            fieldset: 'contact',
+            description: 'Hint text for the Phone field (e.g. "+1 (555) 000-0000")',
+        },
+        {
+            name: 'zipHint',
+            title: 'Zip Code Field Hint',
+            type: 'string',
+            group: 'contact',
+            fieldset: 'contact',
+            description: 'Hint text for the Zip Code field (e.g. "90210")',
+        },
+    ],
+    fieldsets: [
+        { name: 'hero', title: 'Hero Section' },
+        { name: 'memberships', title: 'Memberships Section' },
+        { name: 'scope', title: 'Scope Section' },
+        { name: 'leadership', title: 'Leadership Section' },
+        { name: 'contact', title: 'Contact Section' },
+    ],
+    groups: [
+        { name: 'hero', title: 'Hero' },
+        { name: 'memberships', title: 'Memberships' },
+        { name: 'scope', title: 'Scope' },
+        { name: 'leadership', title: 'Leadership' },
+        { name: 'contact', title: 'Contact' },
+    ],
+};

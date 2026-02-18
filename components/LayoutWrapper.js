@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
@@ -24,7 +25,7 @@ const Content = styled.main`
   flex: 1;
 `;
 
-export default function LayoutWrapper({ children }) {
+export default function LayoutWrapper({ children, settings = {} }) {
     const [isLoading, setIsLoading] = useState(true);
     const [isClient, setIsClient] = useState(false);
     const mainContentRef = useRef(null);
@@ -51,15 +52,23 @@ export default function LayoutWrapper({ children }) {
         }
     }, []);
 
+    const pathname = usePathname();
+    const isStudio = pathname?.startsWith('/studio');
+
     useEffect(() => {
         setIsClient(true);
+
+        if (isStudio) {
+            setIsLoading(false);
+            return;
+        }
 
         // Check if preloader has already run in this session
         const hasRun = sessionStorage.getItem('adhoc_preloader_run');
         if (hasRun) {
             revealContent(true);
         }
-    }, [revealContent]);
+    }, [revealContent, isStudio]);
 
     const handlePreloaderComplete = useCallback(() => {
         sessionStorage.setItem('adhoc_preloader_run', 'true');
@@ -68,6 +77,11 @@ export default function LayoutWrapper({ children }) {
 
     if (!isClient) {
         return <div style={{ opacity: 0, background: '#000', minHeight: '100dvh' }}>{children}</div>;
+    }
+
+    // If we're in the studio, don't wrap in anything
+    if (isStudio) {
+        return <main>{children}</main>;
     }
 
     return (
@@ -79,9 +93,9 @@ export default function LayoutWrapper({ children }) {
                 id="main-content"
                 $isLoading={isLoading}
             >
-                <Header />
+                <Header settings={settings} />
                 <Content>{children}</Content>
-                <Footer />
+                <Footer settings={settings} />
             </MainContent>
         </>
     );

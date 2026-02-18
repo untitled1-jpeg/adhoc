@@ -61,8 +61,12 @@ const LogoLink = styled(Link)`
   }
 `;
 
-export default function Header() {
+import { urlFor } from '@/sanity/lib/image';
+import Image from 'next/image';
+
+export default function Header({ settings }) {
   const [scrolled, setScrolled] = useState(false);
+  const { siteLogo } = settings || {};
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,7 +91,19 @@ export default function Header() {
               }
             }}
           >
-            <Logo width="100%" color="#fff" scrolled={scrolled} />
+            {siteLogo ? (
+              <div style={{ width: '100%', height: 'auto', display: 'flex', alignItems: 'center' }}>
+                <Image
+                  src={urlFor(siteLogo).url()}
+                  alt="Adhoc"
+                  width={scrolled ? 165 : 242}
+                  height={100}
+                  style={{ objectFit: 'contain', transition: 'all 0.4s ease' }}
+                />
+              </div>
+            ) : (
+              <Logo width="100%" color="#fff" scrolled={scrolled} />
+            )}
           </LogoLink>
         </LogoContainer>
       </ContentContainer>

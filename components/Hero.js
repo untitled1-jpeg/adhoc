@@ -195,11 +195,18 @@ const NavArrow = styled.div`
   }
 `;
 
-export default function Hero() {
+export default function Hero({ data = {} }) {
   const headlineRef = useRef(null);
   const subheadlineRef = useRef(null);
   const ctaRef = useRef(null);
   const navItemsRef = useRef([]);
+
+  const {
+    heroHeadline = 'Your life.',
+    heroHeadlineItalic = 'Intelligently coordinated.',
+    heroSubheadline = 'Latin for “for this purpose,” Adhoc exists to keep complex lives running without friction. We oversee the details others miss. From logistics to schedules and contingencies, everything is handled with thought and intention. Through your dedicated coordinator, life stays aligned, on time, and under control. Nothing escalates. Nothing surprises. It is simply handled. Intelligently.',
+    heroCtaText = 'GET ON THE LIST',
+  } = data || {};
 
   useEffect(() => {
     const playEntrance = () => {
@@ -290,19 +297,16 @@ export default function Hero() {
         <GridContainer style={{ height: 'auto' }}>
           <GridCol $start={3} $span={8} $tabletSpan={10} $tabletStart={2} $mobileSpan={12} $mobileStart={1}>
             <Headline ref={headlineRef}>
-              <span style={{ display: 'block' }}>Your life.</span>
-              <em>Intelligently coordinated.</em>
+              <span style={{ display: 'block' }}>{heroHeadline}</span>
+              <em>{heroHeadlineItalic}</em>
             </Headline>
           </GridCol>
           <GridCol $start={4} $span={6} $tabletSpan={8} $tabletStart={3} $mobileSpan={12} $mobileStart={1}>
             <Subheadline ref={subheadlineRef}>
-              Latin for “for this purpose,” Adhoc exists to keep complex lives running without friction.
-              We oversee the details others miss. From logistics to schedules and contingencies, everything is
-              handled with thought and intention. Through your dedicated coordinator, life stays aligned, on
-              time, and under control. Nothing escalates. Nothing surprises. It is simply handled. Intelligently.
+              {heroSubheadline}
             </Subheadline>
             <CtaLink href="#contact" ref={ctaRef} onClick={handleScroll}>
-              GET ON THE LIST <ArrowHorizontal width="25px" color="#ee552f" />
+              {heroCtaText} <ArrowHorizontal width="25px" color="#ee552f" />
             </CtaLink>
           </GridCol>
         </GridContainer>

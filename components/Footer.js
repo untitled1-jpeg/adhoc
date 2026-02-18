@@ -100,8 +100,9 @@ const Definition = styled.div`
   }
 `;
 
-export default function Footer() {
+export default function Footer({ settings }) {
   const currentYear = new Date().getFullYear();
+  const { socialLinks = [], contactEmail = 'hello@adhoc-co.com' } = settings || {};
 
   return (
     <FooterWrapper>
@@ -118,28 +119,6 @@ export default function Footer() {
                 style={{ objectFit: 'contain' }}
               />
             </Link>
-            {/* The animation logic provided in the instruction is not valid JSX and appears to be
-                part of a JavaScript animation library (e.g., GSAP) that would typically reside
-                within a useEffect hook or a separate function. Since this file does not contain
-                the context for `linksRef` or `tl`, and to maintain syntactical correctness,
-                this animation code cannot be directly inserted here.
-                
-                If there is an animation elsewhere that targets footer links, ensure its `stagger`
-                property is set to 0 as per the instruction.
-                
-                For example, if you have a GSAP animation:
-                
-                if (linksRef.current.length > 0) {
-                  tl.to(linksRef.current, {
-                    y: 0,
-                    autoAlpha: 1,
-                    filter: 'blur(0px)',
-                    duration: 1.2,
-                    stagger: 0, // Set stagger to 0 here
-                    ease: 'power3.out'
-                  }, "-=1.0");
-                }
-            */}
             <Copyright>©{currentYear} Adhoc</Copyright>
           </LogoWrapper>
         </GridCol>
@@ -158,16 +137,29 @@ export default function Footer() {
           <NavColumn $isSecond>
             <NavLink href="/#why-adhoc">Why Adhoc?</NavLink>
             <NavLink href="/leadership">Leadership</NavLink>
-            <NavLink href="/privacy">Privacy Policy</NavLink>
+            <NavLink href={contactEmail.startsWith('http') ? contactEmail : `mailto:${contactEmail}`}>
+              Contact
+            </NavLink>
           </NavColumn>
         </GridCol>
 
-        {/* Definition Column */}
+        {/* Social / Definition Column */}
         <GridCol $span={3} $start={10} $mobileSpan={12} $mobileOrder={3}>
-          <Definition>
-            <strong>ADHOC - /AD .HÄK/</strong>
-            -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">"for this purpose"</span>
-          </Definition>
+          <ContentWrapper>
+            {socialLinks.length > 0 && (
+              <NavColumn style={{ marginBottom: '2rem' }}>
+                {socialLinks.map((link, i) => (
+                  <NavLink key={i} href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.platform}
+                  </NavLink>
+                ))}
+              </NavColumn>
+            )}
+            <Definition>
+              <strong>ADHOC - /AD .HÄK/</strong>
+              -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">"for this purpose"</span>
+            </Definition>
+          </ContentWrapper>
         </GridCol>
 
         {/* Copyright Column - Only visible on Mobile */}
