@@ -4,6 +4,7 @@ import LayoutWrapper from '@/components/LayoutWrapper';
 import StructuredData from '@/components/StructuredData';
 import { client } from '@/sanity/lib/client';
 import { settingsQuery } from '@/lib/sanity.queries';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export async function generateMetadata() {
   let settings = null;
@@ -70,6 +71,9 @@ export default async function RootLayout({ children }) {
             {children}
           </LayoutWrapper>
         </StyledComponentsRegistry>
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );
