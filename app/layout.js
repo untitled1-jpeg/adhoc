@@ -6,13 +6,19 @@ import { client } from '@/sanity/lib/client';
 import { settingsQuery } from '@/lib/sanity.queries';
 
 export async function generateMetadata() {
-  const settings = await client.fetch(settingsQuery);
+  let settings = null;
+  try {
+    settings = await client.fetch(settingsQuery);
+  } catch (err) {
+    console.error('Metadata fetch failed:', err.message);
+  }
 
   return {
     title: {
       default: settings?.metaTitle || "Adhoc | Private Life Coordination",
       template: `%s | ${settings?.metaTitle || "Adhoc Life Coordination"}`
     },
+    // ... rest of metadata
     description: settings?.metaDescription || "Adhoc provides private life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
     metadataBase: new URL('https://adhoc-co.com'),
     keywords: ["Life Coordination", "Private Concierge", "Family Office Support", "Dallas", "Executive Assistant", "Adhoc", "Holly Moon"],
@@ -47,7 +53,12 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }) {
-  const settings = await client.fetch(settingsQuery);
+  let settings = null;
+  try {
+    settings = await client.fetch(settingsQuery);
+  } catch (err) {
+    console.error('Layout settings fetch failed:', err.message);
+  }
 
   return (
     <html lang="en">

@@ -8,7 +8,12 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const data = await client.fetch(homepageQuery);
+  let data = null;
+  try {
+    data = await client.fetch(homepageQuery);
+  } catch (err) {
+    console.error('Home data fetch failed:', err.message);
+  }
 
   return (
     <main>
