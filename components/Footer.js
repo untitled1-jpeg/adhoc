@@ -57,8 +57,8 @@ const NavColumn = styled.div`
   gap: 1.5rem;
 
   @media (max-width: 767px) {
-    margin-top: ${props => props.$isSecond ? '1rem' : '3rem'};
-    gap: 1rem;
+    margin-top: 3rem !important; /* Force standard gap */
+    gap: 1.5rem; /* Standard link spacing */
     align-items: center; /* Center links on mobile */
   }
 `;
@@ -82,7 +82,7 @@ const Definition = styled.div`
   max-width: 300px;
   
   @media (max-width: 767px) {
-    margin-top: 4rem;
+    margin-top: 3rem;
     max-width: 100%;
     text-align: center; /* Center definition */
   }
@@ -105,7 +105,7 @@ const Definition = styled.div`
 const SocialLink = styled(NavLink)`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
   
   svg {
     transition: transform 0.3s ease;
@@ -118,11 +118,14 @@ const SocialLink = styled(NavLink)`
 
 const SocialGrid = styled.div`
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 2rem;
+  margin-top: 3rem; /* Space below Contact */
+  margin-bottom: 3rem; /* Space above Definition */
   
   @media (max-width: 767px) {
     justify-content: center;
+    margin-top: 2rem; /* Tighter gap below Contact on mobile */
+    margin-bottom: 3rem;
   }
 `;
 
