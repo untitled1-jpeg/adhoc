@@ -57,8 +57,8 @@ const NavColumn = styled.div`
   gap: 1.5rem;
 
   @media (max-width: 767px) {
-    margin-top: 3rem !important; /* Force standard gap */
-    gap: 1.5rem; /* Standard link spacing */
+    margin-top: ${props => props.$isSecond ? '1.5rem' : '3rem'};
+    gap: 1.5rem;
     align-items: center; /* Center links on mobile */
   }
 `;
@@ -124,7 +124,7 @@ const SocialGrid = styled.div`
   
   @media (max-width: 767px) {
     justify-content: center;
-    margin-top: 2rem; /* Tighter gap below Contact on mobile */
+    margin-top: 1.5rem; /* Match the uniform link rhythm gap */
     margin-bottom: 3rem;
   }
 `;
