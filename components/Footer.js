@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
+import Instagram from './icons/Instagram';
+import LinkedIn from './icons/LinkedIn';
 
 const FooterWrapper = styled.footer`
   padding: 8rem 0;
@@ -100,6 +102,30 @@ const Definition = styled.div`
   }
 `;
 
+const SocialLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  svg {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover svg {
+    transform: translateY(-2px);
+  }
+`;
+
+const SocialGrid = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 767px) {
+    justify-content: center;
+  }
+`;
+
 export default function Footer({ settings }) {
   const currentYear = new Date().getFullYear();
   const { socialLinks = [], contactEmail = 'hello@adhoc-co.com' } = settings || {};
@@ -147,13 +173,18 @@ export default function Footer({ settings }) {
         <GridCol $span={3} $start={10} $mobileSpan={12} $mobileOrder={3}>
           <ContentWrapper>
             {socialLinks.length > 0 && (
-              <NavColumn style={{ marginBottom: '2rem' }}>
-                {socialLinks.map((link, i) => (
-                  <NavLink key={i} href={link.url} target="_blank" rel="noopener noreferrer">
-                    {link.platform}
-                  </NavLink>
-                ))}
-              </NavColumn>
+              <SocialGrid>
+                {socialLinks.map((link, i) => {
+                  const Icon = link.platform?.toLowerCase().includes('instagram') ? Instagram :
+                    link.platform?.toLowerCase().includes('linkedin') ? LinkedIn : null;
+
+                  return (
+                    <SocialLink key={i} href={link.url} target="_blank" rel="noopener noreferrer" title={link.platform}>
+                      {Icon ? <Icon size={24} /> : link.platform}
+                    </SocialLink>
+                  );
+                })}
+              </SocialGrid>
             )}
             <Definition>
               <strong>ADHOC - /AD .HÄK/</strong>
