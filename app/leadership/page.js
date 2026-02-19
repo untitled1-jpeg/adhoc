@@ -2,6 +2,8 @@ import LeadershipClient from './LeadershipClient';
 import { client } from '@/sanity/lib/client';
 import { leadershipPageQuery, leadershipTeamQuery } from '@/lib/sanity.queries';
 
+export const revalidate = 60;
+
 export async function generateMetadata() {
   let pageData = null;
   try {

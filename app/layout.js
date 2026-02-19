@@ -6,6 +6,8 @@ import { client } from '@/sanity/lib/client';
 import { settingsQuery } from '@/lib/sanity.queries';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
+export const revalidate = 60; // Revalidate at most every minute
+
 export async function generateMetadata() {
   let settings = null;
   try {
