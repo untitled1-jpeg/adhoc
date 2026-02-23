@@ -119,8 +119,7 @@ const SocialLink = styled(NavLink)`
 const SocialGrid = styled.div`
   display: flex;
   gap: 2rem;
-  margin-top: 3rem; /* Space below Contact */
-  margin-bottom: 3rem; /* Space above Definition */
+  margin-bottom: 3.5rem; /* Space above Definition - increased slightly to balance layout */
   
   @media (max-width: 767px) {
     justify-content: center;
