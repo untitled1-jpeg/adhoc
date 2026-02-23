@@ -5,8 +5,8 @@ import { homepageQuery } from '@/lib/sanity.queries';
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Adhoc | Private Life Coordination",
-  description: "A private membership that pairs individuals and families with a dedicated Life Coordinator to manage all of the moving parts of their lives.",
+  title: "Adhoc | Life Coordination",
+  description: "A membership that pairs individuals and families with a dedicated Life Coordinator to manage all of the moving parts of their lives.",
 };
 
 export default async function Home() {

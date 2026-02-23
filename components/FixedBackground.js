@@ -58,7 +58,7 @@ export default function FixedBackground() {
     <BackgroundWrapper>
       <StyledImage
         src="/img_background-fallback.webp"
-        alt="Adhoc Private Life Coordination Cinematic Background"
+        alt="Adhoc Life Coordination Cinematic Background"
         fill
         priority
         quality={100}

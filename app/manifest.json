@@ -1,7 +1,7 @@
 {
-  "name": "Adhoc | Private Life Coordination",
+  "name": "Adhoc | Life Coordination",
   "short_name": "Adhoc",
-  "description": "Adhoc provides private life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
+  "description": "Adhoc provides life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

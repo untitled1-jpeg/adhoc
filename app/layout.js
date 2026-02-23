@@ -18,24 +18,24 @@ export async function generateMetadata() {
 
   return {
     title: {
-      default: settings?.metaTitle || "Adhoc | Private Life Coordination",
+      default: settings?.metaTitle || "Adhoc | Life Coordination",
       template: `%s | ${settings?.metaTitle || "Adhoc Life Coordination"}`
     },
     // ... rest of metadata
-    description: settings?.metaDescription || "Adhoc provides private life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
+    description: settings?.metaDescription || "Adhoc provides life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
     metadataBase: new URL('https://adhoc-co.com'),
     keywords: ["Life Coordination", "Private Concierge", "Family Office Support", "Dallas", "Executive Assistant", "Adhoc", "Holly Moon"],
     authors: [{ name: "Holly Moon" }],
     openGraph: {
-      title: settings?.metaTitle || "Adhoc | Private Life Coordination",
-      description: settings?.metaDescription || "Adhoc provides private life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
+      title: settings?.metaTitle || "Adhoc | Life Coordination",
+      description: settings?.metaDescription || "Adhoc provides life coordination for individuals and families, bringing order, foresight, and intention to complex lives.",
       url: 'https://adhoc-co.com',
       siteName: 'Adhoc',
       locale: 'en_US',
       type: 'website',
       images: [
         {
-          url: '/ADHOC_Icon.png',
+          url: '/icon.png',
           width: 1200,
           height: 630,
           alt: 'Adhoc Life Coordination',
@@ -44,9 +44,9 @@ export async function generateMetadata() {
     },
     twitter: {
       card: 'summary_large_image',
-      title: settings?.metaTitle || "Adhoc | Private Life Coordination",
+      title: settings?.metaTitle || "Adhoc | Life Coordination",
       description: settings?.metaDescription || "Order, foresight, and intention for complex lives.",
-      images: ['/ADHOC_Icon.png'],
+      images: ['/icon.png'],
     },
     icons: {
       icon: [
