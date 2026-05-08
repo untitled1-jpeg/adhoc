@@ -228,7 +228,7 @@ export default function Footer({ settings }) {
             <Copyright>©{currentYear} Adhoc</Copyright>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              {affiliations.length > 0 ? (
+              {affiliations?.length > 0 ? (
                 affiliations.map((aff, i) => (
                   <Image
                     key={i}
