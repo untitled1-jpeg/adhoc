@@ -192,6 +192,23 @@ export default function Footer({ settings }) {
               <strong>ADHOC - /AD .HÄK/</strong>
               -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">&quot;for this purpose&quot;</span>
             </Definition>
+            <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-start' }} className="affiliation-logo-wrapper">
+              <style jsx>{`
+                @media (max-width: 767px) {
+                  .affiliation-logo-wrapper {
+                    justify-content: center !important;
+                    margin-top: 3rem !important;
+                  }
+                }
+              `}</style>
+              <Image
+                src="/images/PSA-logo-crest-rev.png"
+                alt="Private Service Alliance"
+                width={60}
+                height={60}
+                style={{ objectFit: 'contain', opacity: 0.7 }}
+              />
+            </div>
           </ContentWrapper>
         </GridCol>
 

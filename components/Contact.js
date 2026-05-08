@@ -295,6 +295,25 @@ export default function Contact({ data = {} }) {
                 </Option>
               </OptionsGrid>
 
+              <div style={{ textAlign: 'left', marginBottom: '2rem' }} ref={addToElementsRef}>
+                <Label style={{ marginBottom: '0.8rem', display: 'block' }}>Preferred method of communication</Label>
+                <div style={{ display: 'flex', gap: '2rem' }}>
+                  <Option>
+                    <input type="radio" name="preferredContact" value="email" defaultChecked />
+                    Email
+                  </Option>
+                  <Option>
+                    <input type="radio" name="preferredContact" value="text" />
+                    Text
+                  </Option>
+                </div>
+              </div>
+
+              <FormGroup ref={addToElementsRef}>
+                <Label htmlFor="howDidYouHear">How did you hear about us?</Label>
+                <Input type="text" id="howDidYouHear" name="howDidYouHear" placeholder="Referral, Social Media, etc." />
+              </FormGroup>
+
               {state?.message && !state.success && (
                 <p style={{ color: '#ff6b6b', marginBottom: '1rem', fontFamily: '"sofia-pro", sans-serif' }}>{state.message}</p>
               )}

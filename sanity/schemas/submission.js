@@ -29,6 +29,22 @@ export default {
             type: 'string',
         },
         {
+            name: 'preferredContact',
+            title: 'Preferred Contact Method',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Email', value: 'email' },
+                    { title: 'Text', value: 'text' },
+                ],
+            },
+        },
+        {
+            name: 'howDidYouHear',
+            title: 'How did you hear about us?',
+            type: 'string',
+        },
+        {
             name: 'status',
             title: 'Status',
             type: 'string',

@@ -22,6 +22,8 @@ const schema = z.object({
     phone: z.string().optional(),
     zip: z.string().min(1, 'Zip Code is required'),
     membership: z.string().optional(),
+    preferredContact: z.string().optional(),
+    howDidYouHear: z.string().optional(),
 });
 
 export async function submitContactForm(prevState, formData) {
@@ -31,6 +33,8 @@ export async function submitContactForm(prevState, formData) {
         phone: formData.get('phone'),
         zip: formData.get('zip'),
         membership: formData.get('membership'),
+        preferredContact: formData.get('preferredContact'),
+        howDidYouHear: formData.get('howDidYouHear'),
     });
 
     if (!validatedFields.success) {
@@ -40,7 +44,7 @@ export async function submitContactForm(prevState, formData) {
         };
     }
 
-    const { name, email, phone, zip, membership } = validatedFields.data;
+    const { name, email, phone, zip, membership, preferredContact, howDidYouHear } = validatedFields.data;
 
     try {
         // 1. Save to Sanity
@@ -51,6 +55,8 @@ export async function submitContactForm(prevState, formData) {
             phone,
             zip,
             membership,
+            preferredContact,
+            howDidYouHear,
             status: 'new',
         });
     } catch (sanityError) {
@@ -71,6 +77,8 @@ export async function submitContactForm(prevState, formData) {
         <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
         <p><strong>Zip Code:</strong> ${zip}</p>
         <p><strong>Membership Interest:</strong> ${membership || 'Not specified'}</p>
+        <p><strong>Preferred Contact Method:</strong> ${preferredContact || 'Not specified'}</p>
+        <p><strong>How did you hear about us?:</strong> ${howDidYouHear || 'Not specified'}</p>
       `,
         });
 
