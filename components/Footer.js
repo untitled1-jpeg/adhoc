@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { GridContainer, GridCol } from '@/components/Grid';
 import Instagram from './icons/Instagram';
 import LinkedIn from './icons/LinkedIn';
+import { urlFor } from '@/sanity/lib/image';
 
 const FooterWrapper = styled.footer`
   padding: 8rem 0 3rem 0;
@@ -129,7 +130,11 @@ const SocialGrid = styled.div`
 
 export default function Footer({ settings }) {
   const currentYear = new Date().getFullYear();
-  const { socialLinks = [], contactEmail = 'hello@adhoc-co.com' } = settings || {};
+  const { 
+    socialLinks = [], 
+    contactEmail = 'hello@adhoc-co.com',
+    affiliations = [] 
+  } = settings || {};
 
   return (
     <FooterWrapper>
@@ -223,14 +228,28 @@ export default function Footer({ settings }) {
             <Copyright>©{currentYear} Adhoc</Copyright>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <Image
-                src="/images/PSA-logo-crest-rev.png"
-                alt="Private Service Alliance"
-                width={70}
-                height={70}
-                className="affiliation-logo"
-                style={{ objectFit: 'contain', opacity: 0.6 }}
-              />
+              {affiliations.length > 0 ? (
+                affiliations.map((aff, i) => (
+                  <Image
+                    key={i}
+                    src={urlFor(aff.logo).url()}
+                    alt={aff.name || "Affiliation"}
+                    width={70}
+                    height={70}
+                    className="affiliation-logo"
+                    style={{ objectFit: 'contain', opacity: 0.6 }}
+                  />
+                ))
+              ) : (
+                <Image
+                  src="/images/PSA-logo-crest-rev.png"
+                  alt="Private Service Alliance"
+                  width={70}
+                  height={70}
+                  className="affiliation-logo"
+                  style={{ objectFit: 'contain', opacity: 0.6 }}
+                />
+              )}
             </div>
           </div>
         </GridCol>

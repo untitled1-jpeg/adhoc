@@ -66,6 +66,23 @@ export default {
                 },
             ],
         },
+        // Affiliations
+        {
+            name: 'affiliations',
+            title: 'Affiliation Logos',
+            type: 'array',
+            group: 'general',
+            fieldset: 'general',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'name', type: 'string', title: 'Organization Name' },
+                        { name: 'logo', type: 'image', title: 'Logo', options: { hotspot: true } },
+                    ],
+                },
+            ],
+        },
     ],
     fieldsets: [
         { name: 'general', title: 'General Info' },
