@@ -8,14 +8,14 @@ import Instagram from './icons/Instagram';
 import LinkedIn from './icons/LinkedIn';
 
 const FooterWrapper = styled.footer`
-  padding: 8rem 0;
+  padding: 8rem 0 3rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   position: relative;
   z-index: 10;
 
   @media (max-width: 767px) {
-    padding: 60px 0;
+    padding: 60px 0 30px 0;
   }
 `;
 
@@ -41,13 +41,12 @@ const Copyright = styled.span`
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.6);
   margin-top: 1rem;
-  display: ${props => props.$mobileOnly ? 'none' : 'block'};
+  display: block;
 
   @media (max-width: 767px) {
-    display: ${props => props.$mobileOnly ? 'block' : 'none'};
     text-align: center; /* Center copyright */
     width: 100%;
-    margin-top: 4rem;
+    margin-top: 2rem; /* Reduced from 4rem for better mobile spacing */
   }
 `;
 
@@ -119,12 +118,12 @@ const SocialLink = styled(NavLink)`
 const SocialGrid = styled.div`
   display: flex;
   gap: 2rem;
-  margin-bottom: 3.5rem; /* Space above Definition - increased slightly to balance layout */
+  margin-bottom: 1.5rem; /* Reduced from 3.5rem to close up space */
   
   @media (max-width: 767px) {
     justify-content: center;
     margin-top: 1.5rem; /* Match the uniform link rhythm gap */
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -147,7 +146,6 @@ export default function Footer({ settings }) {
                 style={{ objectFit: 'contain' }}
               />
             </Link>
-            <Copyright>©{currentYear} Adhoc</Copyright>
           </LogoWrapper>
         </GridCol>
 
@@ -192,29 +190,49 @@ export default function Footer({ settings }) {
               <strong>ADHOC - /AD .HÄK/</strong>
               -created or done for a particular purpose as necessary.<br />Latin for <span className="translation">&quot;for this purpose&quot;</span>
             </Definition>
-            <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-start' }} className="affiliation-logo-wrapper">
-              <style jsx>{`
-                @media (max-width: 767px) {
-                  .affiliation-logo-wrapper {
-                    justify-content: center !important;
-                    margin-top: 3rem !important;
-                  }
-                }
-              `}</style>
-              <Image
-                src="/images/PSA-logo-crest-rev.png"
-                alt="Private Service Alliance"
-                width={60}
-                height={60}
-                style={{ objectFit: 'contain', opacity: 0.7 }}
-              />
-            </div>
           </ContentWrapper>
         </GridCol>
 
-        {/* Copyright Column - Only visible on Mobile */}
+        {/* Bottom Bar / Trust Bar */}
         <GridCol $span={12} $mobileOrder={4}>
-          <Copyright $mobileOnly>©{currentYear} Adhoc</Copyright>
+          <div style={{ 
+            marginTop: '6rem', 
+            paddingTop: '2.5rem', 
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '2rem'
+          }} className="footer-bottom-bar">
+            <style jsx>{`
+              @media (max-width: 767px) {
+                .footer-bottom-bar {
+                  flex-direction: column-reverse !important;
+                  justify-content: center !important;
+                  text-align: center !important;
+                  margin-top: 4rem !important;
+                }
+                .affiliation-logo {
+                  width: 91px !important;
+                  height: 91px !important;
+                }
+              }
+            `}</style>
+            
+            <Copyright>©{currentYear} Adhoc</Copyright>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <Image
+                src="/images/PSA-logo-crest-rev.png"
+                alt="Private Service Alliance"
+                width={70}
+                height={70}
+                className="affiliation-logo"
+                style={{ objectFit: 'contain', opacity: 0.6 }}
+              />
+            </div>
+          </div>
         </GridCol>
       </GridContainer>
     </FooterWrapper>
