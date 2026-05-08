@@ -189,7 +189,10 @@ export default function Contact({ data = {} }) {
     nameHint,
     emailHint,
     phoneHint,
-    zipHint
+    zipHint,
+    preferredContactLabel = 'Preferred method of communication',
+    howDidYouHearLabel = 'How did you hear about us?',
+    howDidYouHearHint
   } = data || {};
 
   // eslint-disable-next-line react-hooks/rules-of-hooks -- verified React 19 usage
@@ -296,7 +299,7 @@ export default function Contact({ data = {} }) {
               </OptionsGrid>
 
               <div style={{ textAlign: 'left', marginBottom: '2rem' }} ref={addToElementsRef}>
-                <Label style={{ marginBottom: '0.8rem', display: 'block' }}>Preferred method of communication</Label>
+                <Label style={{ marginBottom: '0.8rem', display: 'block' }}>{preferredContactLabel}</Label>
                 <div style={{ display: 'flex', gap: '2rem' }}>
                   <Option>
                     <input type="radio" name="preferredContact" value="email" defaultChecked />
@@ -310,8 +313,8 @@ export default function Contact({ data = {} }) {
               </div>
 
               <FormGroup ref={addToElementsRef}>
-                <Label htmlFor="howDidYouHear">How did you hear about us?</Label>
-                <Input type="text" id="howDidYouHear" name="howDidYouHear" placeholder="Referral, Social Media, etc." />
+                <Label htmlFor="howDidYouHear">{howDidYouHearLabel}</Label>
+                <Input type="text" id="howDidYouHear" name="howDidYouHear" placeholder={howDidYouHearHint || "Referral, Social Media, etc."} />
               </FormGroup>
 
               {state?.message && !state.success && (
